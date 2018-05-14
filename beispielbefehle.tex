@@ -1,0 +1,47 @@
+%=====================================================================
+\chapter{Latexbefehle beispielhaft erklärt}
+\label{sec:latexbeispielkapitel}
+%=====================================================================
+Die folgenden Beispielbefehle sollen den Umgang mit Latex erleichtern.
+\section{Tabellen einfügen}
+Tabellen können ohne weiteres eingefügt werden.
+\begin{table}[h!]
+  \centering
+  \caption{Geometrische Grenzen für t1}
+\begin{scriptsize}
+    \begin{tabular}{rc|c}
+    %\toprule
+          &       & gegebene Werte\\
+    \hline
+    Rotordurchmesser & $[m]$ & 1 \\
+    Max. Höhe von Bauwerk & $[m]$ & 1 \\
+    Max. Breite von Bauwerk  & [m]   & 2.00 \\
+    Saugrohrlänge & [m]   & Optimierte Leistung \\
+    \hline
+    %\bottomrule
+    \end{tabular}%
+  \end{scriptsize}
+  \label{tab:geom_boundaries_t1}%
+\end{table}%
+Hierbei zeigt~\ref{tab:geom_boundaries_t1} eine richtige Referenz im Text. Tabellen, die eingefügt werden, müssen immer im Text referenziert werden.
+\section{Graphen einfügen}
+Der Beispielgraph~\ref{abb:pvsrpm} mit der Referenz ist richtig eingefügt.
+\begin{figure}[h!]
+ \includegraphics[scale=0.6,angle=-90]{pics/leistungdrehzahlt1.eps}
+\caption{Leistung über Drehzahl von Turbine t1 für verschiedene Anströmgeschwindigkeiten}
+\label{abb:pvsrpm}
+\end{figure} 
+Eingefügte Bilder und Graphen müssen immer im Text eindeutig referenziert werden.
+\section{Literaturverweise}
+Literaturquellen müssen immer vollständig angegeben und referenziert werden, wie z.B.~\cite{ansys1}. Hierbei nimmt Latex die Sortierung automatisch vor. Die Einträge werden in der Datei ``literatur.bib'' eingefügt.
+\section{Die mathematische Umgebung}
+Des Weiteren können Abkürzungen mittels der mathematische Umgebung, z.B. so $3 m/s$ eingefügt werden.
+Die Formel im Text $v=\frac{s}{t}$ ist gültig.
+Die folgende Formel
+\begin{equation}
+        v=\frac{s}{t}
+\label{equ:geschwindigkeitlinear}
+\end{equation} 
+ist nummeriert. Ein Verweis ist möglich, weil die Formel~\ref{equ:geschwindigkeitlinear} ein Label hat.
+\section{Abkürzungen}
+Abkürzungen müssen wie auch Konstanten und Indizes in der Nomenklatur alphabetisch aufgeführt werden. Die Datei ``nomenklatur1.tex'' enthält viele Beispiele, die nützlich sein können\footnote{Die Datei liegt dem Ordner bei. Zudem zeigt die Fußnote, wie diese verwendet werden kann}.

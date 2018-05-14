@@ -1,0 +1,14 @@
+%=====================================================================
+\chapter{Inhaltliche Ergänzungen}
+\label{chap:ergaenzungen}
+%=====================================================================
+Im Anhang findet ergänzender Inhalt Platz. Hierzu zählen beispielsweise Quellcode, Tabellen und Abbildungen.
+
+Ein Quellcode kann in Auszügen mittels der ``listing''-Umgebung eingefügt werden. 
+\begin{lstlisting}[caption=Beispielbeschriftung,label=lst:nr1]{}
+use Math::Derivative qw(Derivative1 Derivative2);
+@dydx=Derivative1(\@x,\@y);
+@d2ydx2=Derivative2(\@x,\@y);
+@d2ydx2=Derivative2(\@x,\@y,$yp0,$ypn);
+\end{lstlisting}
+Eine Referenz auf Quellcodeauszug \ref{lst:nr1} muss immer vorhanden sein.

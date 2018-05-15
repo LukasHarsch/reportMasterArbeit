@@ -1,0 +1,151 @@
+%=====================================================================
+\chapter{Grundlagen}
+\label{sec:Grundlagen}
+%=====================================================================
+TODO
+
+\section{Neuronale Netze}
+\begin{comment}
+- approximiert f^*
+- y=f^*(x) mapping
+- y=f(x,\theta) learns parameter
+- $f^{(1)}$, $f^{(2)}$ und $f^{(3)}$ zu $f(x)=f^{(3)}(f^{(2)}(f^{(1)}(x)))$ gerichteter Graph
+- Input-Layer nimmt eingangsdaten auf
+- Ausgangsebene soll Ausgabe erzeugen, möglichst ähnlich zu y
+- Hidden layers bestehen aus vielen parallel arbeitenden einheiten, wobi jede eine vektor-zu-skalar funktion repräsentiert.
+- Im allgemeinen werden die hidden units als Funktion beschreiben welche auf einen Vektor aus Eingangsdaten \textbf{x} eine affine Transformation $z=W^Tx+b$ durchführt. Dabei beschreibt $W$ eine Gewichtsmatrix und $b$ einen Bias-Vektor. Anschließend wird eine elementweise nichtlineare Transformation $g(z)$ angewendet. Die Transformation $g(z)$ wird aktivierungsfunktion genannt. 
+- hidden unit für jede Ebene werden somit durch $h^{(l)}=g(W^{(l)T}x+b^{(l)})$ bschrieben, wobei $l$ die jeweile Ebene vorgibt.
+
+- häufig werden rectified linear units verwendet mit der aktivierungsfunktion $g(z)=max\{0,z\}$.
+- Erweiterung ist die leaky ReLU $f(x)= 
+\begin{cases}
+x & if x > 0\\
+\alpha x & otherwise
+\end{cases}
+
+- Es existieren viele weitere Aktivierungsfunktionen.
+\end{comment}
+%
+%
+%
+%
+%
+In diesem Kapitel werden wichtigsten Grundlagen von neuronalen Netzen (NN) erleutert. Das Ziel von neuronaln Netzen ist es eine Funktion $f^*$ zu approximieren. Für eine Klassifikation beispilsweise mappt die Funktion $y=f^*(x)$ die Eingangsdaten $x$ auf eine Klasse $y$. Das Mapping in einem neuronalen Netz ist definiert als $y=f(x;\theta)$ wobei das Netz die Werte der Parameter $\theta$ lernt um die Funktion bestmöglichst zu approximieren. Die Zusammensetzung der Funktionen in einem NN können als als Model eines gerichteten Graphen betrachtet werden. Ein beispiel ist die Verkettung von $f^{(1)}$, $f^{(2)}$ und $f^{(3)}$ zu $f(x)=f^{(3)}(f^{(2)}(f^{(1)}(x)))$. Die Funktionen $f^{(i)}$ beschreiben dabei die verschiedenen Ebenen in einem NN. Während des Trainings wird versucht $f(x)$ so zu berechnen das sie zu $f^*(x)$ passt. Das Trainingssample aus $(x,y)$ gibt dabei vor, dass die Ausgabeebene des Netzes einen Wert produzieren soll, welcher möglichst ähnlich zu $y$ ist. Das Verhalten der inneren Ebenen wird nicht direkt vorgegeben. Der Trainingsalgorithmus muss dann entscheiden wie die inneren Ebenen zu verwenden sind um $f^*$ zu approximieren und die gewünschte Ausgabe zu erhalten.   
+%
+%
+%
+%
+%
+%
+Hierzu wird beispielhaft ein simples feedforward NN betrachtet. Der Aufbau wird in Abbildung XYZ veranschaulicht. Ein CNN besteht aus einer \textbf{Eingangsebene}, mehreren \textbf{versteckten Ebenen} im inneren und einer \textbf{Ausgangsebene}. 
+%
+\begin{itemize}
+ \item input
+ \item hidden layer
+ \item output softmax
+ \item convolution discrete equaltion, maybe image, kernel is learning filter, imgage of real-world filter 
+ \item activation sigmoid, relu
+ \item striding
+ \item flat
+ \item fully connected layer
+ \item Training (SGD)
+\end{itemize}
+
+
+\section{Semi-überwachtes Lernen}
+Das Themengebiet maschinelles Lernen umfasst zwei grundsätzlich verschiedene Aufgabentypen, \textbf{unübrwachtes} und \textbf{übrwachtes} Lernen. Für unüberwachtes Lernen wird ein Set $X=(x_1,\ldots,x_n)$ aus $n$ Exmplaren/Datenpunkten/Samples benötigt, wobei $x_i \in \mathcal{X}$ für alle $i \in [n] := {1,\ldots,n}$. Es wird davon ausgegangen, dass die Punkte unabhängig und gleichverteilt (i.i.d.) von einer Verteilung $\mathcal{X}$ mit der Dichte $p(x)$ gezogen werden. Jeder Eingang $x_i$ stellt ein seperates Feature darstellt. In einem Bild beispielsweise sind die Features die jeweiligen Werte der Pixel. Das Zeil von unüberwachtem Lernen ist es interessante Strukturen in den Daten $X$ zu finden. Dabei ist es üblich die Dichte oder ein bekanntes Funktional zu schätzen welches mit hoher Wahrscheinlichkeit $X$ generiert. Viele Techniken für die Dichteschätzung benötigen eine Latentvariable (unüberwachtes Klassenlabel) $y$. Die Latentvariable $y$ ist eine für das Problem entsprechend modellierte Größe und nicht zu vergleichen mit Klassenlabel bei einer Klassifikation, welches real Klasse wiederspiegeln soll. $y$ wird anschließend verwendet um $P(x)$ als eine gemischte Verteilung $\sum_{y=1}^M P(x|y)P(y)$ zu schätzen. Weitere Anwendungen für unüberwachtes Lernen sind biespielsweise Clustering, Outliererkennung oder Dimensionsreduzierung.\\
+%
+Im Gegensatz zu unüberwachtem Lernen benötigt überwachtes Lernen ein Trainingsdatenset aus Paaren von $(x_i,y_i)$. Dabei beschreibt $y_i$ das Klassenlabel oder das Ziel von $x_i$. Das Ziel von überwachtem Lernen ist die Schätzung eines funktionalen Zusammenhangs bzw. ein mapping von $x\rightarrow y$. Dabei gilt es die Wahrscheinlichkeit des Klassifikationsfehlers zu minimieren. Bei einer Klassifikation kann so durch Schätzung der Dichte $p(y|x)$ den Eingangsdaten $X$ die zugehörigen Klassenlabels $y$ zugewiesen werden. In dieser Arbeit wird das überwachte Lernen verwendet um \textbf{Convolutional Neural Networks} zu trainieren. Ziel des Netzes ist es eine Funktion $f*$ zu approximieren. Für eine Klassifikation mappt die Funktion $y=f*(x)$ die Eingangsdaten $x$ auf eine Klasse $y$. Das Mapping in einem neuronalen Netz ist definiert als $y=f(x;\theta)$ wobei das Netz die Werte der Parameter $\theta$ lernt um die Funktion bestmöglichst zu approximieren.\\
+%
+Ein weiterer Aufgabentyp ist das \textbf{semi-überwachte} Lernen (SSL), welcher zur kathegorie des des überwachten Lernens gehört, da auch hier das Ziel ist den Klassifikationsfehler zu minimieren. Wie zuvor wird ein Datenset mit den zugehörigen Labeln $D_l=\{(x_i,y_i)|i=1,\ldots,n\}$ benötigt, welche i.i.d. von $P(x,y)$ gezogn wurden. Darüber hinaus existiert ein Datenset ohne Klassenlabel $D_u=\{x_{n+j}|j=1,\ldots,m\}$ aus der Verteilung$P(x)$. Semi-überwachtes Lernen ist besonders interessant wenn $m>>n$, da ungelabelete Daten oftmals günstiger und einfacher zu erhalten sind als gelabelte Daten. Das vorgehen bei SSL bsteht aus zwei Schritten. Im ersten werden Methoden des unüberwachten Lernens verwendet um mit Hilfe einer Latentvariabel $y$ die Verteilung $P(x)$ zu schätzen. Anschließend können die Latentgruppen mit den beobachteten Klassen aus $D_l$ verbunden werden. Dieses Vorgehen wird bei den Verfahren \textbf{Variational Autoencoder} und \textbf{Generative Adversarial Network} verwendet.\\  
+%http://www.acad.bg/ebook/ml/MITPress-%20SemiSupervised%20Learning.pdf
+\cite{Goodfellow-et-al-2016}
+
+\begin{comment}
+\section{Semi-überwachtes Lernen2}
+Das Themengebiet maschinells Lernen umfasst viele verschiedene Aufgabengebiete. Diese Arbeit befasst sich mit dem Thema Klassifikation. Bei dieser Aufgabenstellung soll ein Computerprogramm den Eingangsdaten ihre zugehörige Klasse $k \in K$ zuweisen. Dabei ist $K$ die Menge aller definierter Klassen. Die Eingangsdaten $X=(x_1,\ldots,x_n)$ werden als Set aus $n$ Exemplaren oder Punkten definiert, wobei $x_i \in \mathcal{X}$ für alle $i \in [n] := {1,\ldots,n}$. Üblicherweise wird angenommen, dass die Punkte unabhängig und gleichverteilt von einer Verteilung $\mathcal{X}$ gezogen werden. Jeder Eingang $x_i$ stellt ein seperates Feature darstellt. In einem Bild beispielsweise sind die Features die jeweiligen Werte der Pixel. Um die Klassifikationsaufgabe zu lösen muss der Lernalgorithmus zunächst eine Funktion $f:\mathbb{R}^n \rightarrow \{1,\ldots,k\}$ produzieren. Anschließend kann das Model $y=f(X)$ den Eingangsdaten $X$ eine Kathegorie, dargestellt duch einen nummerischn Code $y$, zuweisen.\\ 
+%
+Bei Algorithmen für das maschinelle Lernen kann zwischen drei Gruppen \textbf{unüberwacht}, \textbf{überwacht} und \textbf{semi-überwacht} unterschieden werden. Unüberwachte Lernalgorithmen versuchen Eigenschaften über die Struktur der Eingangdaten $X$ zu lernen. Dabei soll die Dichte geschätzt werden, welche mit hoher Wahrscheinlichkeit $\mathcal{X}$ generiert. Des Weiteren kann unüberwachtes Lernen z.B. genutzt werden um einen Datensatz in Gruppen mit ähnlichen Eigenschaften zu clustern. Im Gegensatz dazu wird überwachtes Lernen für die Klassifikationsaufabe verwendet. Dafür werden neben dem Zufallsvektor $\mathbf{x}$ für die Eingangsdaten die zugehörigeren Label, beschreiben durch den Vektor $\mathbf{y}$, benötigt. Die Paare aus $(x_i,y_i)$ ergeben so das Trainingsdatenset. Der Algorithmus kann somit lernen $\mathbf{y}$ aus $\mathbf{x}$ vorherzusagen. Dies geschieht normalerweise durch die Schätzung von $p(\mathbf{y}|\mathbf{x})$.\\
+%
+Semi-überwachte Lernalgorithmen nutzen beides unglabelte Daten von $P(\mathbf{x})$ und gelabelet Daten von $P(\mathbf{x},\mathbf{y})$ um $P(\mathbf{y}|\mathbf{x})$ zu schätzen oder $\mathbf{y}$ aus $\mathbf{x}$ vorherzusagen. Ungelabelete Daten können dabei in einem Vorverarbeitungsschritt verwendet werden um Cluster in den Eingangsdaten zu finden. Daten die zu Clustern zusammengefügt werden könnn dann in den gleichen Raum gemappt werden. Anschließend wird ein Klassifizierer mit den gelabelten Daten aus der neuen Repräsentation trainiert wodurch eine höhere Performanz erzielt werden kann. Dieses Vorgehen wird beispilesweise bei der \textit{principle components analysis}. Eine andere Möglichkeit ist ein Model in welchem ein generatives Model aus P(x) oder P(x,y) die Parameter mit einem diskriminierenden Model P(y|x) teil. 
+http://www.acad.bg/ebook/ml/MITPress-%20SemiSupervised%20Learning.pdf
+
+\cite{Goodfellow-et-al-2016}
+\end{comment}
+%
+%
+%
+\subsection{Generative Netze}
+Das Ziel von maschinellem Lernen ist die Approximation eines Modells das möglichst allgemein gilt und somit neue bisher unbekannte Daten verarbeiten kann. Der beste Weg solch ein Model zu verallgemeinern ist es, dass Model mit mehr Daten zu trainieren. Allerdings ist die Menge der Trainingsdaten oft limitiert. Aus diesem Grund können Fake-Daten generiert werden um den Datensatz künstlich zu erweitern. Bei einer Klassifikation beispielsweise soll den Eingangsdaten $\mathbf{x}$ eine ein Label $y$ zugewiesen werden. Das bedeutet der Klassifikator muss möglichst invariant gegenüber einer breiten Reihe von Transformationen sein. Neue Trainingsdaten $(\mathbf{x},y)$ können somit einfach durch eine Transformation der Eingangsdaten $\mathbf{x}$ aus dem ursprünglichen Trainingsset erzeugt werden. Bekannte Methoden sind z.B. Umwandlung einiger Pixel in einem Bild, Rotation des Bildes oder eine Veränderung der Skalierung des Bildes. Auch kann es bereits genügen den Eingangsdaten ein Rauschen hinzuzufügen um den Datensatz zu erweitern.\\
+\cite{Goodfellow-et-al-2016}
+\\
+%
+Darüber hinaus existieren weitere komplexere Methoden um Fake-Daten künstlich zu erzeugen. Diese werden generative Modelle genannt. Ziel ist es neue, ungesehene Daten zu erzeugen die ähnlich zu den ursprünglichen Daten sind aber nicht genau gleich sind. Dazu wird ein Set aus Daten $X$ mit einer unbekannten Verteilung $P_{unb.}(X)$ benötigt. Es gilt ein Model zu trainieren welches eine Verteilung $P(X)$ lernen soll, sodass $P(X)$ möglichst ähnlich zu $P_{unb.}(X)$ ist. Aus dieser gelernten Verteilung $P(X)$ kann gesamplet werden um neue Daten zu erzeugen. In dieser Arbeit werden zwei Arten von generativen Netzen untersucht, der "variational autoencoder" und das "generative adversarial network".\\   
+\cite{2016arXiv160605908D}
+%
+%
+\subsubsection{Variational Autoencoder}
+%
+%
+\begin{figure}
+%
+\tikzstyle{int}=[draw]
+\begin{tikzpicture}
+	[auto,>=latex']
+	\node [int, regular polygon,regular polygon sides=3, shape border rotate=-90] (Enc) {\begin{tabular}{c} Encoder \\ $Q(z|X)$ \end{tabular}};
+	\node (Input) [left of=Enc, node distance=4cm, coordinate] {Input};
+	\node [int, rect, minimum width=0.5cm, minimum height=2cm] (Lat) [right of=Enc, node distance=4cm] {$z$};
+	\node (Middle2) [left of=Lat, node distance=3cm, coordinate] {Middle2};
+	\node [int, regular polygon,regular polygon sides=3, shape border rotate=90, label=above:{Decoder}] (Dec) [right of=Lat, node distance=4cm] {\begin{tabular}{c} Decoder \\ $P(X|z)$ \end{tabular}};
+	\node (Middle) [left of=Dec, node distance=3cm, coordinate] {Middle};
+	\node [coordinate] (end) [right of=Dec, node distance=4cm]{};
+	
+	\path[->] (Input) edge node {Input $X$} (Enc);
+	\path[->] (Enc) edge node {} (Lat);
+	\path[->] (Lat) edge node {} (Dec);
+	\draw[->] (Dec) edge node {Output $\hat{X}$} (end) ;
+\end{tikzpicture}
+%
+\caption[VAEblock]{Blockschaltbild eines Autoencoders}
+\label{VAEblock}
+\end{figure}
+%
+%
+Die Grundidee eines Autoencoders (AE) ist die Eingangsdaten über einen Zwischenraum auf die Ausgangsdaten zu kopieren. Dabei beschreibt der Zwischenraum einen Code welcher die Eingangsdaten repräsentiert. Der AE besteht aus zwei hintereienander gschalteten Netzen. Der strukturelle Aubau wird in Abbildung \ref{VAEblock} dargestellt. Das erste Netz, der \textbf{Encoder} $Q$ ist eine Funktion $z=f(X)$ welche die Eingangsdaten $X$ in einen Zwischenraum $z$ mappt. Der Zwischenraum wird im folgenden als Latentraum bezeichnet. Das zweite Netz, der \textbf{Decoder} $P$ soll aus den kodierten Daten $z$ die ursprünglichen Daten $X$ rekonstruieren. Der Autoencoder soll dabei nicht nur das Mapping $g(f(x))=x$ lernen. Oft wird der AE so eingeschränkt das er wichtige Eigenschaften der Eingangsdaten lernt. So kann der AE beispilsweise die Verteilung $P(X)$ der Eingangsdaten lernen.\\
+%
+Der \textbf{Latentraum} ist eine Vektor $\mathbf{z}$ aus sogenannten Latentvariablen $z$. Dabei können Samples von $\mathbf{z}$ entsprechend einer Wahrscheinlichkeitsdichtefunktion (PDF) $P(\mathbf{z})$ entnommen werden. Im weiteren Verlauf wird $\mathbf{z}$ als normal verteilt angenommen, d.h. $\mathbf{z}\sim\mathcal{N}(0,I)$, wobei $I$ die Einheitsmatrix darstellt. Die multidimensionale Verteilung von $P(\mathbf{z})$ in $d$ Dimensionen setzt sich somit aus einem Set von $d$ normal verteilten Variablen $z$ zusammen.\\
+%
+Wie breits erwähnt ist das Ziel ein Model der Daten zu finden, d.h. der AE soll die Verteilung $P(X)$ der Eingangsdaten $X$ lernen. Dazu wird eine Funktion $X=f(z;\theta)$ benötigt, welche die Latentvariablen $z$ nach $X$ mappt. Der Vektor $\theta$ definiert die Parameter der Netzes. Es gilt $\theta$ so zu optimieren, dass durch ziehen von Samples $z$ aus $P(z)$ die Funktion $f(z;\theta)$ mit hoher Wahrscheinlichkeit Ausgaben produziert welche gleich den $X$'s aus dem Datenset sind. Dieser Zusammenhang kann nach dem Gesetz der totalen Wahrscheinlichkeit beschreiben werden als:
+%
+\begin{equation}
+P(X)=\int \underbrace{P(X/z,\theta)}_{f(z;\theta)}P(z)dz.
+%\label{eq:totaleWahrscheinlichkeit}
+\end{equation}
+%
+Wenn das Model mit hoher Wahrscheinlichkeit Beispiele aus dem Trainingsdatensatz produziert ist es ebenfalls sehr wahrscheinlich, dass das Model Samples erzeugen kann die ähnlich aber nicht gleich den Trainingsdaten sind.\\
+%
+Das bisherige Konzept wird im Folgenden zu einem variational Autoncoder (VAE) erweitert. Hierbei ist das Ziel die Verteilung $P(z)$ aus $P(z|X)$ zu erschließen. Dies macht Sinn, da $z$ so eine Verteilung annimmt welche mit hoher Wahrscheinlichkeit $X$ produzieren kann. Diese Methode wird variational inference (VI) genannt. Die Idee ist die tatsächliche Verteilung $P(z|X)$ mittels einer einfacheren Verteilung $Q(z|X)$ zu modellieren, z.B. eine Gaussverteilung. Dabei gilt es den Unterschied zwischen der tatsächlichen und der modellierten Verteilung zu minimieren. Dazu wird die Kullback-Leibler (KL) Divergenz verwendet. Diese Metric beschreibt den Unterschied zweier Verteilungen, hier den Unterschied zwischen $P(z|X)$ und $Q(z|X)$. Die KL Divergenz wird formliert als:
+%
+\begin{equation}
+D_{KL}\big[Q(z|X)||P(z|X)\big] = E\big[\mathrm{log} Q(z|X) - \mathrm{log} P(z|X)\big].
+\end{equation}
+%
+Mit der Anwendung der Bayes-Regel und einigen Transformationen ergibt sich daraus die Kostenfunktion für den VAE als:
+%
+\begin{equation}
+\mathrm{log} P(X) - D_{KL}\big[Q(z|X)||P(z|X)\big] = E\big[ \mathrm{log} P(X|z)\big] - D_{KL}\big[Q(z|X)||P(z)\big].
+\label{eq:KL_loss}
+\end{equation}
+%
+Die linke Seite der Gleichung \ref{eq:KL_loss} beschreibt die kostenfunktion des VAE. Wie bereits erwähnt ist das oberste Ziel des VAE die Wahrscheinlichkeit von $P(X)$ zu maximieren. Hier beschreiben durch die log-Wahrscheinlichkeit $\mathrm{log} P(X)$. Hinzu kommt der Regularizierungsterm $D_{KL}\big[Q(z|X)||P(z|X)\big]$ welcher sicherstellt, dass $Q$ Latentvariablen $z$ produzieren kann aus denen sich anschließend $X$ reproduzieren lässt. Die rechte Seite von Gleichung \ref{eq:KL_loss} ist eine Darstellung die mittels stochastic gradient descent Methoden optimiert werden kann. Wie im oberen Teil bereits bschreiben wird die Verteilung von $P(z)$ als Standartnormalverteilung $\mathcal{N}(0,I)$ definiert.
+
+Aus diesem Grund wurde die Verteilung $P(z)$ wie im obren Teil beschreiben als Normalverteilung definiert.
+
+%
+%
+\subsubsection{GAN}
+TODO
+
+\subsection{Attack-Defence}
+
+\section{Akustic-Preprocessing}

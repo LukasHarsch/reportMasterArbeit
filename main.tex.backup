@@ -1,0 +1,122 @@
+\documentclass[12pt,oneside,a4paper,openright]{report} 
+%\documentclass[12pt,twoside,a4paper,openright]{report} 
+
+%---------------------------------------------------------------------
+%-- Eigene Definitionen aus Datei mydefs.sty
+%---------------------------------------------------------------------
+\usepackage{mydefs}
+%\includeonly{pitch}
+
+\begin{document}
+
+%---------------------------------------------------------------------
+%-- Titelblatt (aus titel.tex)
+%---------------------------------------------------------------------
+
+  \pagenumbering{roman}\setcounter{page}{1}
+  \include{titel}
+  \clearemptydoublepage
+
+%---------------------------------------------------------------------
+%-- "Vorspann"
+%---------------------------------------------------------------------
+
+%-- Vorwort (aus vorwort.tex)
+% Ein Vorwort ist nicht zwingend erforderlich
+%  \include{vorwort}
+ % \clearemptydoublepage
+
+
+%-- Erklärung Eides Statt
+\include{erklaerung}
+
+%-- Inhaltsverzeichnis
+  \tableofcontents
+  \markboth{Inhaltsverzeichnis}{Inhaltsverzeichnis}
+  \addcontentsline{toc}{chapter}{Inhaltsverzeichnis}
+  \clearemptydoublepage
+
+\markboth{Bildverzeichnis}{Bildverzeichnis}
+\addcontentsline{toc}{chapter}{Bildverzeichnis}
+\renewcommand\listfigurename{Bildverzeichnis}
+\listoffigures
+
+\markboth{Tabellenverzeichnis}{Tabellenverzeichnis}
+\addcontentsline{toc}{chapter}{Tabellenverzeichnis}
+\listoftables
+
+%Quellcodeverzeichnis
+\lstlistoflistings
+\addcontentsline{toc}{chapter}{Quellcodeverzeichnis}
+
+%  \begingroup
+%         \renewcommand*{\addvspace}[1]{}
+%         \phantomsection
+%         \addcontentsline{toc}{chapter}{\listfigurename}
+%         \listoffigures
+%         \newpage
+%         \phantomsection
+%         \addcontentsline{toc}{chapter}{\listtablename}
+%         \listoftables
+% \endgroup
+
+%-- Nomenklatur 
+ \include{nomenklatur1}
+ \clearemptydoublepage
+%\lstset{
+%language={},                % {} für normalen Klartext
+%backgroundcolor=\color{white},
+%linewidth=\linewidth,       % Zeilenbreite
+%breaklines=true,             % Zeileumbruch
+%breakatwhitespace=true, %Umbruch an Leerzeichen
+%}
+
+%---------------------------------------------------------------------
+%-- "Hauptteil" - die einzelnen Kapitel
+%---------------------------------------------------------------------
+
+  \pagenumbering{arabic}\setcounter{page}{1}
+
+  \include{einleitung}
+  \clearemptydoublepage
+ \include{beispielbefehle}
+  \clearemptydoublepage
+
+
+%---------------------------------------------------------------------
+%-- Literaturverzeichnis
+%---------------------------------------------------------------------
+%\bibliographystyle{alphadin}
+%  \bibliography{/usr/local/share/num.bib/num}
+  %\bibliographystyle{ihs}
+%  \addcontentsline{toc}{chapter}{Literaturverzeichnis}
+
+
+%%%%%% hier für Literatur!!! %%%%%%
+%\nocite{*}%wenn das drinn  ist, dann werden alle referenzen eingefuegt in literaturverzeichnis
+\bibliography{literatur}
+\bibliographystyle{ihs}
+\addcontentsline{toc}{chapter}{Literaturverzeichnis}
+  \clearemptydoublepage
+
+%---------------------------------------------------------------------
+%-- Anhang
+%---------------------------------------------------------------------
+
+%  \appendix
+
+%  \include{anhang_A}
+%  \clearemptydoublepage
+
+
+%%%%%%%%%%%%%%%
+% \include{grundlagen_rsi}
+%   \clearemptydoublepage
+
+%  \include{fft}
+%  \clearemptydoublepage
+
+%  \include{auswertung}
+%  \clearemptydoublepage
+
+\end{document}

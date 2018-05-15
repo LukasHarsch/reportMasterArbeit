@@ -1,0 +1,588 @@
+%====================================================================%
+%                                                                    %
+%   BESCHREIBUNG:                                                    %
+%      Zusammenstellung von LaTeX-Paketen und Befehlen.              %
+%      Diese Datei dient als Style-File, das in die allgemeine       %
+%      LaTeX-Vorlage f?r Studien- und Diplomarbeiten am IHS          %
+%      eingebunden werden kann.                                      %
+%                                                                    %
+%   AUFBAU:                                                          %
+%      1. Allgemeine Einstellungen                                   %
+%         * Z. B. Einbinden von Packages, Einstellen der             %
+%           Seitenr?nder, Einstellungen zum Literaturverzeichnis     %
+%         * Anmerkung: Einige der hier eingebundenen Pakete werden   %
+%                      nur in "Spezialf?llen" ben?tigt. Der dadurch  %
+%                      entstehende zus?tzliche Zeitaufwand ist       %
+%                      aber erfahrungsgem?? so gering, dass es sich  %
+%                      empfiehlt, der Einfachheit halber alles       %
+%                      zun?chst unver?ndert zu übernehmen und nur    %
+%                      bei Bedarf den eigenen Anforderungen          %
+%                      anzupassen ("Never chage a running system")   %
+%                                                                    %
+%      2. Eigene Befehle                                             %
+%         * Die Definition eigener Makro-Befehle kann die Arbeit     %
+%           mit LaTeX sehr erleichtern                               %
+%         * Beispielhaft sind bereits einige Befehle definiert       %
+%         * Prinzipiell k?nnen wesentlich aufw?ndigere Macros        %
+%           definiert werden - siehe einschl?gige Literatur          %
+%         -> Nach Bedarf erweitern!!                                 %
+%                                                                    %
+%      3. Vorgaben f?r die Silbentrennung                            %
+%         * F?r manche W?rter ist es sinnvoll, die Silbentrennung    %
+%           selbst vorzuschreiben oder auch zu unterbinden           %
+%           (z. B. Eigennamen)                                       %
+%         -> Nach Bedarf erweitern!!                                 %
+%                                                                    %
+%                                                                    %
+%====================================================================%
+
+
+%--------------------------------------------------------------------%
+%--                  1. Allgemeine Einstellungen                   --%
+%--------------------------------------------------------------------%
+
+
+%====================================
+% Einstellung der verwendeten Schrift
+%====================================
+
+%\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/
+%- Adobe-Schrift Times-Roman ohne passende Mathematikschrift
+%  (sollte nicht mehr verwendet werden)
+%%\usepackage{times}
+%%\usepackage[T1]{fontenc}
+%%\usepackage{exscale}
+%/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
+
+
+%\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/
+%- Adobe-Schrift Times-Roman mit passender Mathematikschrift
+%%\usepackage{mathptmx}
+%%\usepackage[T1]{fontenc}
+%/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
+
+
+%\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/
+%- Adobe-Schrift Utopia mit passender Mathematikschrift
+%  (T1 encoding wird automatisch aktivert)
+%  (Achtung: AMS-Paket "amsfonts" und "amssymb" sollen nach
+%   der Dokumentation vor "fourier" aufgerufen werden, 
+%   also diese Pakete hier und nicht unten im 
+%   AMS-Latex-Bereich aktivieren!)
+\usepackage{amsfonts}
+\usepackage{amssymb}
+%\usepackage{fourier}
+%\usepackage[widespace]{fourier}
+\usepackage{bm}
+%/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
+\usepackage{paralist}
+\usepackage{placeins}
+
+%\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/
+%- Adobe-Schrift Utopia mit passender Mathematikschrift
+%  (T1 encoding wird automatisch aktivert)
+%  (Achtung: AMS-Paket "amsfonts" nicht parallel verwenden!)
+%%\usepackage[utopia]{mathdesign}
+%/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
+
+
+%\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/
+%- Helvetica ohne passende Mathematikschrift
+%\usepackage[scaled=0.96]{helvet}
+%%\renewcommand{\familydefault}{\sfdefault}
+\usepackage[T1]{fontenc}
+%%\usepackage{exscale}
+%/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
+\usepackage{lmodern}
+%\usepackage[numbers]{natbib}
+%---------------------------------------------------
+%- AMS-Latex Pakete (American Mathematical Society)
+%---------------------------------------------------
+%
+%- Haupterg?nzungspaket von AMS-Latex
+\usepackage{amsmath}
+
+%- Erweiterung des Standard-Mathematikzeichensatzes
+%  (Achtung: nicht in Verbindung mit mathdesign verwenden!)
+\usepackage{amsfonts}
+%- Weitere Mathematiksymbole in Verbindung mit dem Paket 
+%  "amsfonts"
+%%\usepackage{amssymb}
+
+%- stellt das \text{}-Kommando im Mathematikmodus zur Verf?gung
+\usepackage{amstext}
+
+%- Kompatibilit?tssicherung mit Version 1.1 des AMS-Latex-Paketes
+%%\usepackage{amsxtra}
+
+%- Erzeugung kommutativer Diagramme
+%%\usepackage{amscd}
+
+%======================================
+%======================================
+\usepackage{psfrag}
+
+% natbib -> Literaturverzeichnis (mit Eintr?gen in versch. Sprachen)
+% sort&compress -> aus [3,2,5,8,4] wird automatisch [2-5,8]
+\usepackage[numbers,sort&compress]{natbib}
+
+
+% letzte Sprache ist entscheidend 
+% (ngerman = deutsch, neue Rechtschreibung)
+\usepackage[english,german,ngerman]{babel}
+
+
+% zum Literaturverzeichis
+\input{babelbst}
+\selectlanguage{ngerman}  % evtl. nicht notwendig?
+
+
+% kein vergr??erter Abstand nach einem Punkt
+% (sollte eigentlich in ngerman enthalten sein)
+\frenchspacing
+
+
+% Format der Bild- und Kapitelunterschriften
+%\usepackage[hang,indention=-1.0cm,small,bf]{caption}
+\usepackage[hang,small,bf]{caption} %ori
+%\usepackage[plain,small,bf]{caption}
+
+
+% Einbinden von deutschen Sonderzeichen - ?, ?, ?, ?
+% nach Kopka (?) unter DOS/ OS2  cp850  
+%                Windows  ansinew
+%                Linux     latin1
+% eigene Erfahrung: es geht hiermit sowohl unter Windows als auch
+% unter Linux
+\usepackage[latin1]{inputenc}
+%\usepackage[utf8]{inputenc}
+
+% Packages f?r Tabellen
+\usepackage{tabularx}
+\usepackage{longtable}
+\usepackage{ltxtable}
+
+%%%%%%%%%%%%%%%%% Quellcode:
+\usepackage{listings}
+\usepackage{color}
+%%%%%%% Quellcode
+\lstset{
+    numbers=left,
+    basicstyle=\footnotesize,
+    captionpos=b,
+    language=C++,
+    tabsize=2,                      % sets default tabsize to 2 spaces
+    numberstyle=\tiny\color[gray]{0.6},   % line number style
+    keywordstyle=\color{blue},                    % keyword style
+    commentstyle=\color{darkgreen},       % comment style
+    showspaces=false,               % show spaces adding particular underscores
+    showstringspaces=false,           % underline spaces within strings
+    stringstyle=\color{red}         % string literal style
+}
+%%%%%%% Quellcodeunterschrift Bezeichnung
+\renewcommand*\lstlistingname{Quellcode}
+%%%%%%% Ueberschrift quellcodeverzeichnis
+\renewcommand{\lstlistlistingname}{Quellcodeverzeichnis}
+
+% Verbesserung der tabular-Umgebung
+% (z.B. k?nnen damit in Tabellen die H?he der Zeilen vergr??ert werden
+\usepackage{array}
+\usepackage{hhline}
+
+
+% Farbe (in Tabellen)
+\usepackage{color}
+\usepackage{colortbl}
+
+
+% Umbenennung von "`Abbildung"' (Standard) in "`Bild"',
+% d.h. Bildunterschrift nun z.B. "`Bild 1.2:"'
+\addto\captionsngerman{\def\figurename{Bild}}
+\addto\captionsgerman{\def\figurename{Bild}}
+%\addto\captionsngerman{\def \figurename{Abb.}}
+%\addto\captionsngerman{\def \tablename{Tab.}}
+
+% diverse weitere Packages
+\usepackage{multicol}
+\usepackage{bigstrut}
+\usepackage{bigdelim}
+\usepackage{multirow}
+\usepackage{float}
+\usepackage{latexsym}
+%- korrigiert den Abstand bei Kommas im Mathematikmodus
+\usepackage{ziffer}
+
+
+%- Einstellung der Seitenr?nder
+%- Binderand               = 15 mm
+%- Innerer Rand            = 2*Basis
+%- Oberer Rand (Kopfzeile) = 3*Basis
+%- ?u?erer Rand            = 4*Basis
+%- Unterer Rand            = 5*Basis
+%
+% 7,5 mm-Basis: 
+%%\usepackage[a4paper,
+%%            twoside,
+%%            includehead,
+%%            ignorefoot,
+%%            bindingoffset=15mm,
+%%            inner=15mm,
+%%            top=22.5mm,
+%%            outer=30mm,
+%%            bottom=37.5mm]{geometry}
+
+% 7 mm-Basis: 
+\usepackage[a4paper,
+			%twoside,
+			includehead,
+			ignorefoot,
+			bindingoffset=15mm,
+			inner=14mm,
+			top=21mm,
+			outer=28mm,
+			bottom=35mm]{geometry}
+
+% % 6,5 mm-Basis: 
+% \usepackage[a4paper,
+%             twoside,
+%             includehead,
+%             ignorefoot,
+%             bindingoffset=15mm,
+%             inner=13mm,
+%             top=19.5mm,
+%             outer=26mm,
+%             bottom=32.5mm]{geometry}
+
+% 6 mm-Basis: 
+%%\usepackage[a4paper,
+%%            twoside,
+%%            includehead,
+%%            ignorefoot,
+%%            bindingoffset=15mm,
+%%            inner=12mm,
+%%            top=18mm,
+%%            outer=24mm,
+%%            bottom=30mm]{geometry}
+
+
+% Keine Einr?ckung der ersten Zeile eines Absatzes
+\setlength{\parindent}{0ex}
+
+
+% Abstand zwischen Abs?tzen
+\setlength{\parskip}{1ex plus0.3ex minus0.1ex}
+
+
+% Einf?gen einer leeren Seite, so dass n?chste Ausgabe auf rechter
+% Seite beginnt (nur relevant f?r doppelseitige Ausdrucke)
+\makeatletter
+\newcommand{\clearemptydoublepage}{\clearpage\if@twoside \ifodd\c@page\else
+  \thispagestyle{empty}% <---
+  \hbox{}\newpage\if@twocolumn\hbox{}\newpage\fi\fi\fi}
+\makeatother
+
+
+% Einstellungen f?r die Kopf- und Fu?zeile
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\renewcommand{\chaptermark}[1]{\markboth{\thechapter\;\ #1}{}}%
+%  {\thechapter\;\ #1}}%bug fix a.ruopp
+\renewcommand{\sectionmark}[1]{\markright{\thesection\;\ #1}}
+
+\fancypagestyle{plain}{%
+\fancyhf{}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.0pt}
+\renewcommand{\footrulewidth}{0.0pt}}
+
+\fancyhead{}
+\fancyhead[LE,LO]{\small{\nouppercase{\leftmark}}}
+\fancyhead[RE,RO]{\small{\nouppercase{\rightmark}}}
+%\fancyhead[LE,RO]{\thepage}
+\fancyfoot[CE,CO]{\thepage}
+\fancyfoot[RE,LO]{}
+% Dicke der Striche f?r die Kopf- und die Fu?zeile
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.0pt}
+\setlength{\headheight}{14.5pt}
+
+
+% Einstellungen f?r subfigure
+% Mehrere Bilder nebeneinander mit einem Z?hler unter dem Bild
+% Verwendung: \begin{figure}% ... \end{figure}
+% "nooneline" richtet die subfigure-counter linksb?ndig aus
+%%\usepackage[hang,nooneline,footnotesize,bf,tight]{subfigure}
+\usepackage[nooneline,small,bf,tight]{subfigure}
+% => Achtung: subfigure-Version 2.1 oder neuer muss verwendet 
+%             werden, sonst funktioniert der tight-Befehl nicht!!!
+%\renewcommand{\thesubfigure}{\alph{subfigure})}
+\renewcommand{\thesubfigure}{\alph{subfigure}}
+% => f?gt die Klammer hinter der Subfigure-Nummer ein
+\makeatletter
+\renewcommand{\@thesubfigure}{\thesubfigure)\hskip\subfiglabelskip}
+\makeatother
+
+%\renewcommand{\subfigtopskip}{5pt}
+%\renewcommand{\subfigcapskip}{-15pt}
+%\renewcommand{\subfigcaptopadj}{3pt}
+\renewcommand{\subfigbottomskip}{2pt}
+%\renewcommand{\subfigcapmargin}{0pt}
+
+
+% Bilder, die alleine auf einer Seite platziert sind, werden jetzt am
+% oberen Seitenrand ausgerichtet.
+\makeatletter
+\setlength{\@fptop}{0pt}
+\makeatother
+
+
+% Einstellungen, die u.a. beinflussen, wieviel Platz auf einer Seite mit
+% Bildern bleiben muss, dass noch Text darauf geschrieben wird.
+% Bei Standardeinstellungen kann erfahrungsgem?? viel ungenutzter
+% Leerraum entstehen
+\renewcommand{\floatpagefraction}{0.8} % 8 vorher 0.5 
+\renewcommand{\textfraction}{0.1} % vorher 0.2
+\renewcommand{\topfraction}{0.85} % vorher 0.7
+\renewcommand{\bottomfraction}{0.5} % vorher 0.3
+
+
+% Macro, das den Doppelpunkt bei := auf die richtige H?he setzt
+\mathchardef\ordinarycolon\mathcode`\:
+\mathcode`\:=\string"8000
+\begingroup \catcode`\:=\active
+  \gdef:{\mathrel{\mathop\ordinarycolon}}
+\endgroup
+
+
+% Section-?berschriften linksb?ndig (statt Blocksatz)
+%us !! hat unerw?nschte Nebeneffekte, wenn man Zeile selbst umbricht !!
+%us !! \usepackage{sectsty}
+%us !! \allsectionsfont{\raggedright}
+
+
+% Mit diesem Package wird das Wort "Kapitel" in der
+% Kapitel?berschrift unterdr?ckt. Es erscheint also nur noch die
+% Kapitelnummer ohne nachfolgenden Punkt und die Kapitel?berschrift.
+\usepackage{chapter_heading_mod}
+
+
+% bewirkt eine bessere Trennung innerhalb eines mittels \raggedright 
+% rechtsb?ndig gesetzten Absatzes
+\usepackage{everysel}
+%\usepackage[newcommands]{ragged2e}
+
+
+% Unterdr?ckung einzelner Zeilen am Seitenanfang bzw. Seitenende
+\clubpenalty = 10000
+\widowpenalty = 10000 
+\displaywidowpenalty = 10000
+
+
+% Diese Einstellung verhindert mehr oder weniger ein Ueberstehen von
+% Worten am Ende einer Zeile (aus Goossens, M., Der Latex Begleiter,
+% S. 52)
+% Standardeinstellung: \tolerance{200}, 
+\setlength\tolerance{500}
+\setlength\emergencystretch{20pt}
+
+
+% Einbindung von URLs 
+% - Sonderzeichen m?ssen nicht maskiert werden
+% - Trennung wird automatisch ?bernommen
+% - Aufruf z.B.:
+%     \url{http://www.ihs.uni-stuttgart.de/intern}
+%   oder
+%     \url|http://www.ihs.uni-stuttgart.de/intern| 
+\usepackage{url}
+
+
+
+%  \usepackage[colorlinks]{hyperref}
+%  \usepackage[dvips]{epsfig}
+
+
+
+%%%%%%%%%%%
+% pdflatex
+%%%%%%%%%%%
+\usepackage{ifpdf}
+
+
+\ifpdf
+\usepackage[pdftex]{graphicx}
+%\usepackage[pdftex][colorlinks]{hyperref}
+%\usepackage[colorlinks,pagebackref=true]{hyperref}
+% \usepackage[colorlinks]{hyperref}
+% 
+% %Neue Farben definieren
+% \definecolor{darkred}{rgb}{0.5,0,0}
+% \definecolor{darkgreen}{rgb}{0,0.5,0}
+% \definecolor{darkblue}{rgb}{0,0,0.5}
+% \hypersetup{colorlinks=true,
+%                linkcolor = darkblue,
+%                anchorcolor = green,
+%                citecolor = darkred,
+%                filecolor = blue,
+%                pagecolor = red,
+%                urlcolor = blue
+%            } 
+\DeclareGraphicsExtensions{.pdf}
+\else
+
+%\usepackage[dvips]{epsfig}
+\usepackage[pspdf]{epsfig}
+\usepackage{graphicx}
+\usepackage[]{geometry}
+\DeclareGraphicsExtensions{.eps}
+
+\usepackage[dvips]{hyperref}
+%\usepackage[colorlinks]{hyperref}
+%\usepackage[breaklinks]{hyperref}
+
+%Neue Farben definieren
+\definecolor{darkred}{rgb}{0.5,0,0}
+\definecolor{darkgreen}{rgb}{0,0.5,0}
+\definecolor{darkblue}{rgb}{0,0,0.5}
+\hypersetup{colorlinks=true,
+               linkcolor = darkblue,
+               anchorcolor = green,
+               citecolor = darkred,
+               filecolor = blue,
+               pagecolor = red,
+               urlcolor = blue,
+     %          breaklinks=true,
+               linktocpage
+           } 
+
+% The package "hypcap" tries a solution of the problem with hyperref,
+% that links floats points below the caption and not at the beginning
+% of the float.
+  \usepackage[all]{hypcap}
+\fi
+%%%%%%%%%%%
+%%%%%%%%%%%
+
+\usepackage{hhline}
+
+%\usepackage{hypdvips}
+%\usepackage{breakurl}
+
+% Fettdruck von Formelzeichen in ?berschriften
+% von http://www.volkerschatz.com/tex/tex.html (27.06.2007)
+% Maths in headings: Chapter, section and other headings appear in
+% bold face in the text but not in the page headline and (for some)
+% the table of contents. This puts you in a quandary if you use math
+% mode in headings (for instance mentioning a function the section is
+% about). If you set it in bold face, it will look out of place in the
+% headline and table of contents; if you don't, it will look funny in
+% the heading in the text. You can fix this by redefining the macro
+% \bfseries which is used in the section macros to switch on bold
+% face. 
+% This somewhat changes the behaviour of \bfseries, but only if you
+% use it together with math mode. This redefinition resembles the
+% original one (which cannot easily be listed because it is contained
+% in a macro called "\bfseries ", including the space; see here how to
+% do it) except for the \boldmath command which sets all following
+% maths symbols in bold face. (I also left out some error handling
+% compared with the original definition.)
+\def\bfseries{\fontseries \bfdefault \selectfont \boldmath}
+
+\newcommand{\degree}{\text{\textdegree}}
+\newcommand{\°}{\text{\textdegree}}
+
+
+%--------------------------------------------------------------------%
+%--                        Eigene usepackages                      --%
+%--------------------------------------------------------------------%
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+\usetikzlibrary{shapes}
+\usepackage{verbatim}
+
+
+%--------------------------------------------------------------------%
+%--                        2. Eigene Befehle                       --%
+%--------------------------------------------------------------------%
+
+\newcommand{\D}{NQ20}
+\newcommand{\F}{NQ26}
+\newcommand{\J}{NQ32}
+\newcommand{\N}{NQ42}
+
+% Hinweis:
+% mit \arraystretch wird der Abstand in Vektoren, Matrizen, Tabellen
+% erh?ht
+\renewcommand{\arraystretch}{1.1}
+
+\newcommand{\bt}[1]{\renewcommand{\arraystretch}{1.2}
+  \setlength{\tabcolsep}{0.5em}
+  \begin{tabular}{#1}} 
+\newcommand{\et}{\end{tabular}\renewcommand{\arraystretch}{1.1}}
+
+\newcommand{\PreserveBackslash}[1]{\let\temp=\\#1\let\\=\temp}
+\newcommand{\tnl}{\tabularnewline}
+\newcommand{\tabnl}[1][0.0ex]{\vspace{#1}\newline}
+
+% Mathematische Operatoren
+% Symbol fuer gew?hnliche Ableitung
+\newcommand{\dg}{{\ensuremath{\mathrm{d}}}}
+% Symbol fuer materielle Ableitung
+\newcommand{\Dm}{{\ensuremath{\mathrm{D}}}}
+% Symbol fuer partielle Ableitung
+\newcommand{\dpa}{{\ensuremath{\partial}}}
+% Gradient
+\newcommand{\grad}{{\ensuremath{\mathrm{grad}}}}
+% Divergenz
+\newcommand{\diverg}{{\ensuremath{\mathrm{div}}}}
+% Determinante
+\newcommand{\deter}{{\ensuremath{\mathrm{det}}}}
+%
+% Dimensionslose Kennzahlen
+\newcommand{\Ma}{{\ensuremath{\mathrm{Ma}}}}
+\newcommand{\Rey}{{\ensuremath{\mathrm{Re}}}}
+%
+% mathematische Indizes
+\newcommand{\tot}{{\ensuremath{\mathrm{t}}}}
+
+% bezogen aufs Relativsystem
+\newcommand{\rel}{{\ensuremath{\mathrm{rel}}}}
+
+% isentrope Machzahl
+\newcommand{\Mais}{{\ensuremath{\mathrm{Ma}_\mathrm{is,aus}}}}
+
+% Zahlenmengen
+\newcommand{\R}{\ensuremath{\mathbb{R}}}
+\newcommand{\Z}{\ensuremath{\mathbb{Z}}}
+
+
+%--------------------------------------------------------------------%
+%--                3. Vorgaben f?r die Silbentrennung              --%
+%--------------------------------------------------------------------%
+
+% man beachte: f?r W?rter, die bereits einen Bindestrich enthalten
+%    (wie z.B. Navier-Stokes-Gleichungen) kann man hier keine Vorgaben
+%    machen}
+\hyphenation{Be-triebs-punkt Be-triebs-punkts 
+  Be-triebs-punk-te Be-triebs-punk-ten
+  Extra-po-la-tion
+  Kom-bi-na-tion Kom-bi-na-tio-nen
+  La-by-rinth-aus-tritt La-by-rinth-aus-tritts
+  La-by-rinth-ein-tritt La-by-rinth-ein-tritts
+  Mess-ebe-ne Mess-ebe-nen
+  Pitch-ver-hält-nis
+  Pitch-ver-hält-nisse
+  Pitch-ver-hält-nissen
+  Leit-schau-fel-aus-tritt
+  Leit-schau-fel-an-zahl
+  Leit-schau-fel-an-zahl-en
+  Leit-schau-fel-zahl
+  Leit-schau-fel-zahl-en
+  Si-nus-sig-nal
+  Feh-ler-quad-rat-me-tho-de
+  Farb-ska-lier-ung
+  Aus-wer-te-ebe-ne
+  Aus-wer-te-ebe-nen
+  Open-FOAM
+ % Str\"o-mungs-ka-nal %Strö-mungs-ka-näle
+  TurboGrid}  
+

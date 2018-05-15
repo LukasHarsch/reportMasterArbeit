@@ -1,0 +1,20 @@
+\select@language {ngerman}
+\select@language {ngerman}
+\contentsline {chapter}{Nomenklatur}{iv}
+\contentsline {chapter}{\numberline {1}Einleitung}{1}
+\contentsline {chapter}{\numberline {2}Grundlagen}{2}
+\contentsline {section}{\numberline {2.1}NN basics}{2}
+\contentsline {section}{\numberline {2.2}Neuronale Netze}{6}
+\contentsline {section}{\numberline {2.3}Semi-\"uberwachtes Lernen}{7}
+\contentsline {subsection}{\numberline {2.3.1}Generative Netze}{8}
+\contentsline {subsubsection}{Variational Autoencoder}{9}
+\contentsline {subsubsection}{GAN}{10}
+\contentsline {subsection}{\numberline {2.3.2}Attack-Defence}{11}
+\contentsline {section}{\numberline {2.4}Akustic-Preprocessing}{11}
+\contentsline {chapter}{\numberline {3}Ergebnisse}{12}
+\contentsline {section}{\numberline {3.1}Autoencoder}{12}
+\contentsline {section}{\numberline {3.2}GAN}{12}
+\contentsline {section}{\numberline {3.3}Attak-Defence}{12}
+\contentsline {chapter}{\numberline {4}Zusammenfassung}{13}
+\contentsline {chapter}{Literaturverzeichnis}{14}
+\contentsline {chapter}{\numberline {A}Inhaltliche Erg\"anzungen}{15}

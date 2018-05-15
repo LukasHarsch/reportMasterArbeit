@@ -1,0 +1,72 @@
+\begin{titlepage}
+\thispagestyle{empty}
+%
+% Institut und Institutslogo
+\parbox[b]{\textwidth}{
+\raisebox{+3mm}{\includegraphics[scale=6, clip]{pics/unistuttgartlogo.eps}}
+\parbox[b]{70.0mm}{\fontsize{8pt}{9pt}\fontfamily{phv}\selectfont%
+\begin{flushleft} 
+Universität Stuttgart\\%[1.0ex]
+Institut für Strömungsmechanik und\\ Hydraulische Strömungsmaschinen\\
+Prof. Dr.-Ing. S. Riedelbauch
+\end{flushleft}
+}
+}
+\vspace{24.0ex}
+%
+%\mbox{}\vspace{18mm} %20
+
+\LARGE
+%\vspace{11.0mm}\\
+\begin{center}
+%
+% Titel der Studienarbeit/Diplomarbeit
+%\textbf{Diplomarbeit} 
+\textbf{No. xxx\\}
+\vspace{1.0ex}
+\textbf{Studie zur Einsatzfähigkeit von OpenFOAM zur Strömungsberechnung hydraulischer Maschinen\\}%\\
+%\rule{_Breite_}{_Stärke_} %%andersrum ist's vertikal;)
+\rule{\textwidth}{0.4pt}
+\end{center}
+
+
+\rule{0pt}{100pt}
+\fontsize{8pt}{9pt}\fontfamily{phv}\selectfont
+Stuttgart, den xx.xx.20xx
+\rule{0pt}{100pt}
+
+
+\begin{tabular}{lll}
+Sachbearbeiter:&Abteilungsleiter:&Institutsleiter:
+\end{tabular}
+
+\rule{0pt}{35pt}
+\begin{tabular}{lll}
+Dipl.-Ing. Andreas Ruopp&Dr.-Ing. Albert Ruprecht&Prof. Dr.-Ing. S. Riedelbauch\\
+\end{tabular}
+\parbox[b]{\textwidth}{
+\parbox{70.0mm}{\fontsize{8pt}{9pt}\fontfamily{phv}\selectfont%
+
+Universität Stuttgart\\%[1.0ex]
+Institut für Strömungsmechanik und\\ Hydraulische Strömungsmaschinen\\
+Prof. Dr.-Ing. S. Riedelbauch
+
+}
+\parbox{70.0mm}{\fontsize{8pt}{9pt}\fontfamily{phv}\selectfont%
+
+Universität Stuttgart\\%[1.0ex]
+Institut für Strömungsmechanik und\\ Hydraulische Strömungsmaschinen\\
+Prof. Dr.-Ing. S. Riedelbauch
+
+}
+\parbox{70.0mm}{\fontsize{8pt}{9pt}\fontfamily{phv}\selectfont%
+ 
+Universität Stuttgart\\%[1.0ex]
+Institut für Strömungsmechanik und\\ Hydraulische Strömungsmaschinen\\
+Prof. Dr.-Ing. S. Riedelbauch
+}
+}
+}
+
+\end{titlepage}
+

@@ -1,0 +1,7 @@
+%=====================================================================
+\chapter{Einleitung}
+%=====================================================================
+Diese Latexvorlage soll dem Studierenden bei der Arbeitserstellung helfen. Aufgrund der Komplexität von Latex, sind die am IHS geltenden Richtlinien zur Erstellung einer wissenschaftlichen Arbeit schon in dieser Vorlage eingepflegt.\\
+
+Das folgende Kapitel gibt für die häufigsten und gebräuchlichsten Befehle eine kleine Anleitung, wie beispielsweise das Einfügen eines Bildes, einer Formel oder einer Fußnote.\\
+Das Kapitel~\ref{chap:allgemeinehilfen} beschreibt das übliche Vorgehen bei einer wissenschaftlichen Arbeit und dient als Hilfe. Kapitel~\ref{chap:hilfsprogramme} listet einige nützliche Programme auf.\\

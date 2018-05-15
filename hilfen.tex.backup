@@ -1,0 +1,49 @@
+%=====================================================================
+\chapter{Allgemeine Hilfen}
+\label{chap:allgemeinehilfen}
+%=====================================================================
+Das vorliegende Kapitel soll dem Studenten eine kleine Anleitung geben, wie man eine wissenschaftliche Arbeit schreibt.\\
+Dafür werden einige Tipps gegeben und auf mögliche Fehlerquellen hingewiesen, die man unbedingt vermeiden sollte. Bitte dieses Kapitel aufmerksam durchlesen, dann haben die Betreuer es einiges leichter.
+\section{Gliederung der Arbeit}
+Zu Beginn muss die Arbeit sinnvoll gegliedert werden. Die Arbeiten enthalten immer eine Einleitung und eine Zusammenfassung mit anschließendem Ausblick. Je nach Art der Arbeit beschreibt der Mittelteil die eigentlich vorgenommenen Untersuchungen, beschreibt die Ergebnisse. Eine beispielhafte Gliederung kann folgendermaßen aussehen:
+\begin{enumerate}
+ \item Einleitung
+ \item Theoretische Herleitung
+ \item Modellierung und Simulationsaufbau
+ \item Ergebnisse
+ \item Zusammenfassung
+ \item Ausblick
+\end{enumerate}
+\section{Hilfestellung für die Gliederung der Arbeit}
+Im allgemeinen könnnen folgende Fragen helfen, wissenschaftliche Texte zu schreiben:
+\begin{enumerate}
+ \item Um welchen Themenbereich handelt es sich?
+ \item Warum ist es wichtig, sich mit diesem Themenbereich zu befassen?
+ \item Was hat die bisherige Forschung zu diesem Themenbereich an Erkenntnissen gewonnen?
+ \item Wie wurden die vorhandenen Erkenntnisse gewonnen?
+ \item Welche Fragen sind bislang offen geblieben?
+ \item Welche dieser offenen Fragen ist Gegenstand der vorliegenden Untersuchung?
+ \item Wie wurden die neuen Erkenntnisse gewonnen?
+ \item Welche neuen Erkenntnisse wurden gewonnen? 
+ \item Wie sind die neuen Erkenntnisse im Zusammenhang mit den bereits vorhandenen Erkenntnissen einzuschätzen?
+\end{enumerate}
+Die Fragen sind sehr ausführlich gestellt. Bachelorarbeiten können und müssen nicht alle Fragen beantworten. Masterarbeiten können schon neue Erkenntnisse gewinnen. Die Fragen sollen bei der Gliederung der Arbeit helfen und können die Inhalte von Einleitung und Theorieteil meist gut vorgeben.\\
+\section{Kleine Schreibregeln}
+Generell sollten die Kapitel keine Vorwärtsreferenzen enthalten, die explizit den Leser zwingen, zwischendurch ein Kapitel weiter zu springen.\\
+Üblicherweise stellt man die verwendeten Theorien und Gleichungen dar, die mit dem Thema zu tun haben. Dinge, die man nicht benötigt, gehören nicht in die Arbeit. Das wäre unzulässiges Füllen von Seiten, und macht das Lesen der Arbeit schwer.\\
+Die oben beschriebene Kapitelstruktur schließt einen chronologischen Berichtstil aus. Dieser wird in wissenschaftlichen Texten auch nicht gepflegt.\\
+Die folgende Übersicht gibt einige Regeln wieder, die beachtet werden sollten:
+\begin{enumerate}
+ \item Der Text wird immer in der Gegenwart geschrieben.
+ \item Keine Vorwärtsreferenzen, bei dem der Leser springen muss, um den Text zu verstehen.
+ \item Nach jeder Überschrift kommt Text.
+ \item Unbestimmte Pronomen wie ``man'' sollte nach Möglichkeit vermieden werden.
+ \item Unterkapitel machen nur dann Sinn, wenn diese mindestens zu zweit vorkommen.
+ \item Aktivkonstruktionen machen den Text zumeist besser leserlich.
+ \item Lange Schachtelsätze sind schwierig zu lesen und verkomplizieren den zumeist ohnehin schwierigen und schwer verständlichen Sachverhalt unnötigerweise über das übliche Maß hinaus und können zudem unter Umständen zu Aussagen führen, die im besten Falle nur zweideutig sind.
+ \item Umgangssprache ist tabu. Auch das Verwenden von beschreibenden Adjektiven sollte vermieden werden, wie z.B. ``das Ergebniss sieht schön aus''.
+ \item Füllwörter sind unnötig. Beispiel: ``quasi, eigentlich, etwa, sollte'' etc.
+ \item Anglizismen sind kein guter Stil
+ \item Wissenschaftlich heißt nicht unverständlich.
+\end{enumerate}
+

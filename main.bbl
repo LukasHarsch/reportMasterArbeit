@@ -1,0 +1,18 @@
+\begin{thebibliography}{2}
+\expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
+\input{babelbst.tex}
+\newcommand{\Capitalize}[1]{\uppercase{#1}}
+\newcommand{\capitalize}[1]{\expandafter\Capitalize#1}
+
+\bibitem[{Doersch}(2016)]{2016arXiv160605908D}
+{Doersch}, C.: {Tutorial on Variational Autoencoders}, \emph{ArXiv e-prints},
+  \bbljun{} 2016\vspace{-1.ex}%
+\markboth{Literaturverzeichnis}{Literaturverzeichnis}
+
+\bibitem[Goodfellow et~al.(2016)Goodfellow, Bengio, \protect\bbland{}
+  Courville]{Goodfellow-et-al-2016}
+Goodfellow, I.; Bengio, Y.; Courville, A.: \emph{Deep Learning}, MIT Press,
+  \url{http://www.deeplearningbook.org}, 2016\vspace{-1.ex}%
+\markboth{Literaturverzeichnis}{Literaturverzeichnis}
+
+\end{thebibliography}

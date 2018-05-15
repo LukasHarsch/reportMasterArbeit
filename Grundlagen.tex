@@ -262,7 +262,13 @@ Die linke Seite der Gleichung \ref{eq:KL_loss} beschreibt die kostenfunktion des
  D_{KL}\big[N(\mu(X),\Sigma(X))||N(0,I)\big] = \frac{1}{2}\sum_k\Big(\Sigma(X)+\mu^2(X)-1-\mathrm{log}\Sigma(X)\Big).
 \end{equation}
 %
-Jetzt folgt noch der Reparametrizierungs Trick!!!!!!
+- Um den Eingang $z$ für den Encoder zu erhalten müssen Sample aus eine Gaussverteilung gezogen werden, welche durch die Parameter aus dem DEcoder definiert wird. Dies führt allerdings zu Problemen bei der Optimierung mit gradient descent, da der Sampling-Prozess keine Gradienten besitzt.\\
+- Damit das Netz differenzierbar bleib wird der sogenannte Reparametrisierungstrick angewandt.
+- Eine Standartnormalverteilung lässt sich in jede Gaussverteilung konvertieren, falls deren Erwartungswert und Varianz bekannt sind. Somit genügt es Sample aus einer Standartnormalverteilung $\epsilon Tilde N(0,1) $ zu ziehen und diese mit dem Erwartungswert $\mu$ und der Varianz $\Sigma$ aus dem Encoder nach $z$ zu konvertieren:
+\begin{equation}
+z=\mu(X)+\Sigma^{\frac{1}{2}}(X)\epsilon.
+\end{equation}
+Somit wird der eigentliche Sampling-Prozess aus dem Netz herausgezogen. Lediglich $\mu$ und $\Sigma$ sind noch Teil des Netzes und die Backpropagation kann problemlos durchgeführt werden. 
 
 
 %
@@ -273,3 +279,4 @@ TODO
 \subsection{Attack-Defence}
 
 \section{Akustic-Preprocessing}
+Dieses Kapitel beschreibt die 

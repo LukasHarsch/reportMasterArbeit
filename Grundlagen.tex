@@ -111,29 +111,7 @@ representations.\\
 - The parameter sharing used by the
 convolution operation means that rather than learning a separate set of parameters for every location, we learn only one set\\
 - Des Weiteren haben CNN die Eigenschaft \textbf{equivariance to translation}. Für eine Funktion bedeutet dies, wenn sich der Input ändert, so ändert sich der Output gleichermaßen. Formel geschrieben ist eine Funktion $f(x)$ equivariant zu einer Funktion $g$ falls $f(g(x))=g(f(x))$ ist.\\
-- When processing time series data, this means that convolution produces a sort of timeline that shows when different features appear in the input. If we move an event later in time in the input, the exact same representation of it will appear in the output, just later in time.
-\begin{comment}
-Conv operator:\\
-- Convolution im Allgemeinen ist eine Operation zwischen zwei Funktionen. Dabei wird das Integral der punktweisen Multiplikation der zwei Funktionen gebildet, wobei eine Funktion gedreht und verschoben ist:
-$s(t)=\int x(a) w(t-a) da$.
-Die Convolution wird mit einem Stern beschreiben:
-$s(t)=(x\star w)(t)$.
-- In der Termonolgie von CNNs beschreibt das erste Argument $x$ den Input während das zweite Argument $w$ als Kernel bezeichnet wird. Der Ausgang wird Featre Map genannt.  \\
-- Im Normalfall liegen Daten in diskreter Form vor. Dies führt diskreten Formulierung der Convolution:
-\begin{equation}
-s(t)=(x\star w)(t)=\sum_{a=-\infty}^{\infty}x(a)w(t-a).
-\end{equation}
-Der Eingang $x$ ist typischerweise ein multidimensionaler Array aus Daten Der Kernel $w$ beschreibt ein mutlidimensionalen Array aus Parameter die während des Trainings vom Lernalgorithmus angepaqsst werden.\\
-- oftmals wird convolution über mehr als eine Achse berechnet. Für ein zweidimensionals Bild $I$ als Input beispielsweise kann ein zweidimensionaler Kernel $K$ verwendet werden. Die Convolution resultiert in:
-\begin{equation}
-S(i,j)=(I\star K)(i,j)=\sum_{m}\sum_{n} I(m,n)K(i-m,j-n).
-\end{equation}
-Die Convolution ist kommutativ und kann somit geschreiben werden als:
-\begin{equation}
-S(i,j)=(K\star I)(i,j)=\sum_{m}\sum_{n} I(i-m,j-n)K(m,n).
-\end{equation}
-Diese Schreibweise hat Vorteile bei der Implementierung 
-\end{comment}
+- When processing time series data, this means that convolution produces a sort of timeline that shows when different features appear in the input. If we move an event later in time in the input, the exact same representation of it will appear in the output, just later in time.\\
 %
 \\goodfellow S.350\\
 ---\\
@@ -220,18 +198,6 @@ Im Gegensatz zu unüberwachtem Lernen benötigt überwachtes Lernen ein Trainingsda
 Ein weiterer Aufgabentyp ist das \textbf{semi-überwachte} Lernen (SSL), welcher zur kathegorie des des überwachten Lernens gehört, da auch hier das Ziel ist den Klassifikationsfehler zu minimieren. Wie zuvor wird ein Datenset mit den zugehörigen Labeln $D_l=\{(x_i,y_i)|i=1,\ldots,n\}$ benötigt, welche i.i.d. von $P(x,y)$ gezogn wurden. Darüber hinaus existiert ein Datenset ohne Klassenlabel $D_u=\{x_{n+j}|j=1,\ldots,m\}$ aus der Verteilung$P(x)$. Semi-überwachtes Lernen ist besonders interessant wenn $m>>n$, da ungelabelete Daten oftmals günstiger und einfacher zu erhalten sind als gelabelte Daten. Das vorgehen bei SSL bsteht aus zwei Schritten. Im ersten werden Methoden des unüberwachten Lernens verwendet um mit Hilfe einer Latentvariabel $y$ die Verteilung $P(x)$ zu schätzen. Anschließend können die Latentgruppen mit den beobachteten Klassen aus $D_l$ verbunden werden. Dieses Vorgehen wird bei den Verfahren \textbf{Variational Autoencoder} und \textbf{Generative Adversarial Network} verwendet.\\  
 %http://www.acad.bg/ebook/ml/MITPress-%20SemiSupervised%20Learning.pdf
 \cite{Goodfellow-et-al-2016}
-
-\begin{comment}
-\section{Semi-überwachtes Lernen2}
-Das Themengebiet maschinells Lernen umfasst viele verschiedene Aufgabengebiete. Diese Arbeit befasst sich mit dem Thema Klassifikation. Bei dieser Aufgabenstellung soll ein Computerprogramm den Eingangsdaten ihre zugehörige Klasse $k \in K$ zuweisen. Dabei ist $K$ die Menge aller definierter Klassen. Die Eingangsdaten $X=(x_1,\ldots,x_n)$ werden als Set aus $n$ Exemplaren oder Punkten definiert, wobei $x_i \in \mathcal{X}$ für alle $i \in [n] := {1,\ldots,n}$. Üblicherweise wird angenommen, dass die Punkte unabhängig und gleichverteilt von einer Verteilung $\mathcal{X}$ gezogen werden. Jeder Eingang $x_i$ stellt ein seperates Feature darstellt. In einem Bild beispielsweise sind die Features die jeweiligen Werte der Pixel. Um die Klassifikationsaufgabe zu lösen muss der Lernalgorithmus zunächst eine Funktion $f:\mathbb{R}^n \rightarrow \{1,\ldots,k\}$ produzieren. Anschließend kann das Model $y=f(X)$ den Eingangsdaten $X$ eine Kathegorie, dargestellt duch einen nummerischn Code $y$, zuweisen.\\ 
-%
-Bei Algorithmen für das maschinelle Lernen kann zwischen drei Gruppen \textbf{unüberwacht}, \textbf{überwacht} und \textbf{semi-überwacht} unterschieden werden. Unüberwachte Lernalgorithmen versuchen Eigenschaften über die Struktur der Eingangdaten $X$ zu lernen. Dabei soll die Dichte geschätzt werden, welche mit hoher Wahrscheinlichkeit $\mathcal{X}$ generiert. Des Weiteren kann unüberwachtes Lernen z.B. genutzt werden um einen Datensatz in Gruppen mit ähnlichen Eigenschaften zu clustern. Im Gegensatz dazu wird überwachtes Lernen für die Klassifikationsaufabe verwendet. Dafür werden neben dem Zufallsvektor $\mathbf{x}$ für die Eingangsdaten die zugehörigeren Label, beschreiben durch den Vektor $\mathbf{y}$, benötigt. Die Paare aus $(x_i,y_i)$ ergeben so das Trainingsdatenset. Der Algorithmus kann somit lernen $\mathbf{y}$ aus $\mathbf{x}$ vorherzusagen. Dies geschieht normalerweise durch die Schätzung von $p(\mathbf{y}|\mathbf{x})$.\\
-%
-Semi-überwachte Lernalgorithmen nutzen beides unglabelte Daten von $P(\mathbf{x})$ und gelabelet Daten von $P(\mathbf{x},\mathbf{y})$ um $P(\mathbf{y}|\mathbf{x})$ zu schätzen oder $\mathbf{y}$ aus $\mathbf{x}$ vorherzusagen. Ungelabelete Daten können dabei in einem Vorverarbeitungsschritt verwendet werden um Cluster in den Eingangsdaten zu finden. Daten die zu Clustern zusammengefügt werden könnn dann in den gleichen Raum gemappt werden. Anschließend wird ein Klassifizierer mit den gelabelten Daten aus der neuen Repräsentation trainiert wodurch eine höhere Performanz erzielt werden kann. Dieses Vorgehen wird beispilesweise bei der \textit{principle components analysis}. Eine andere Möglichkeit ist ein Model in welchem ein generatives Model aus P(x) oder P(x,y) die Parameter mit einem diskriminierenden Model P(y|x) teil. 
-http://www.acad.bg/ebook/ml/MITPress-%20SemiSupervised%20Learning.pdf
-
-\cite{Goodfellow-et-al-2016}
-\end{comment}
 %
 %
 %
@@ -299,18 +265,6 @@ Mit der Anwendung der Bayes-Regel und einigen Transformationen ergibt sich darau
 %
 Die linke Seite der Gleichung \ref{eq:KL_loss} beschreibt die kostenfunktion des VAE. Wie bereits erwähnt ist das oberste Ziel des VAE die Wahrscheinlichkeit von $P(X)$ zu maximieren. Hier beschreiben durch die log-Wahrscheinlichkeit $\mathrm{log} P(X)$. Hinzu kommt der Regularizierungsterm $D_{KL}\big[Q(z|X)||P(z|X)\big]$ welcher sicherstellt, dass $Q$ Latentvariablen $z$ produzieren kann aus denen sich anschließend $X$ reproduzieren lässt. Die rechte Seite von Gleichung \ref{eq:KL_loss} ist eine Darstellung die mittels stochastic gradient descent Methoden optimiert werden kann. Wie im oberen Teil bereits bschreiben wird die Verteilung von $P(z)$ als Standartnormalverteilung $\mathcal{N}(0,I)$ definiert. Somit soll auch $Q(z|X)$ eine Gaussverteilung mit Erwartungswert $\mu(X)$ und Varianz $\Sigma(X)$ werden. Für die KL Divergenz ergibt sich durch Einsetzen diesen beiden Verteilungen:
 %
-\begin{comment}
-\begin{align} \notag
-D_{KL}\big[N(\mu(X),\Sigma(X))||N(0,I)\big]
-= &\frac{1}{2}\Big(\mathrm{tr}(\Sigma(X))+\mu(X)^T\mu(X)-k-\mathrm{log}~\mathrm{det}(\Sigma(X))\Big)\\
-\notag
-= &\frac{1}{2}\Big(\sum_k\Sigma(X)+\sum_k\mu^2(X)-\sum_k 1-\mathrm{log}\prod_k\Sigma(X)\Big)\\
-\notag
-= &\frac{1}{2}\Big(\sum_k\Sigma(X)+\sum_k\mu^2(X)-\sum_k 1-\mathrm{log}\sum_k\Sigma(X)\Big)\\
-\notag
-= &\frac{1}{2}\sum_k\Big(\Sigma(X)+\mu^2(X)-1-\mathrm{log}\Sigma(X)\Big)
-\end{align}
-\end{comment}
 %
 \begin{equation}
  D_{KL}\big[N(\mu(X),\Sigma(X))||N(0,I)\big] = \frac{1}{2}\sum_k\Big(\Sigma(X)+\mu^2(X)-1-\mathrm{log}\Sigma(X)\Big).

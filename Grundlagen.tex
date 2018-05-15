@@ -106,36 +106,27 @@ Bild von Faltungsprozess und Referenze einfügen.\\
 - CNNs haben drei Ideen welche heflen das machine learning Verhalten zu verbessern: sparse interactions, parameter sharing and equivariant
 representations.\\
 - Traditionelle NN Ebenen verwenden eine Matrix multiplikation zwischen einer Matrix aus Parametern und einem weiteren Paramater. Das bedeutet jede Output unit interagiert mit jeder Eingangs unit. CNN dagegen haben eine \textbf{sparse interaction}. Dies wird erreicht indem kleiner als der Input ist. Ein Bild beispielsweise besteht aus einer vielzahl von Pixeln. Ein kleinerer Kernel betrachtet nur wenige Pixel aus dem gemsaten Bild und kann somit aussagekräftige Features wie Kanten und Ecken in dem Bild erkennen. Darüber hinaus werden weniger Parameter benötigt wodurch der Speicher- und Rechenaufwand reduziert wird.\\
-- \textbf{parameter sharing:} In traditionlellen NN wird jedes Element der Gewichtsmatrix genau ein mal verwendet um den Ausgang einer Ebene zu berechnen, indem jedes Gewicht mit einem Element des Inputs multipliziert wird und danach nicht mehr verwendet wird. In einem CNN dagegen wird jeder Filter eines Kernels an jeder Position des Inputs verwendet.  \\ 
-%  
-- The parameter sharing used by the
-convolution operation means that rather than learning a separate set of parameters for every location, we learn only one set\\
-- Des Weiteren haben CNN die Eigenschaft \textbf{equivariance to translation}. Für eine Funktion bedeutet dies, wenn sich der Input ändert, so ändert sich der Output gleichermaßen. Formel geschrieben ist eine Funktion $f(x)$ equivariant zu einer Funktion $g$ falls $f(g(x))=g(f(x))$ ist.\\
-- When processing time series data, this means that convolution produces a sort of timeline that shows when different features appear in the input. If we move an event later in time in the input, the exact same representation of it will appear in the output, just later in time.\\
+- \textbf{parameter sharing:} In traditionlellen NN wird jedes Element der Gewichtsmatrix genau ein mal verwendet um den Ausgang einer Ebene zu berechnen, indem jedes Gewicht mit einem Element des Inputs multipliziert wird und danach nicht mehr verwendet wird. In einem CNN dagegen wird jeder Filter eines Kernels an jeder Position des Inputs verwendet. Somit wird an Stelle eines seperaten Parameterset für jede Position im Input nur ein Parameterset für alle Positionen benötigt.  \\ 
 %
-\\goodfellow S.350\\
----\\
+- Des Weiteren haben CNN die Eigenschaft \textbf{equivariance to translation}. Für eine Funktion bedeutet dies, wenn sich der Input ändert, so ändert sich der Output gleichermaßen. Formel geschrieben ist eine Funktion $f(x)$ equivariant zu einer Funktion $g$ falls $f(g(x))=g(f(x))$ ist.\\
+- Beispielsweise soll die Funktion $I$ die Pixel eines Bildes beschreiben. Das Mapping auf eine andere Funktion soll beschreiben werden durch $I'=g(I)$, wobei gilt $I'(x,y)=I(x-1,y)$. Dadurch wird jedes Pixel in dem Orginalbild um eine Einheit verschoben. Durch die equivariance Eingenschaft ergibt sich der selbe Output wenn zuerst die Transformation $g$ und dann die Convolution angewendet wird bzw. erst die Conv, dann die Trafo $g$.\\
+- Diese Eigenschaft ist beispielsweise in der Bildverarbeitung sehr hilfreich. Hier kann die erste Conv-Ebene Feautres wie z.B. Ecken oder Kanten erkennen. Da Ecken und Kanten über das gesamte Bild verteilt auftreten können ist es hilfreich die Paramter über das gesamte Bild zu teilen. \\
+%
 \\
 \\
-\\
-- nahe zu immer in verbildung mit convs ist die pooling operation.\\
-
+%
 \textbf{Pooling}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+%
+-Der Conv-Oprator tritt oftmals in Verbindung mit dem Pooling-Operator auf. Das Pooling wird auf den Output der Conv-Ebene angewendet und ersetzt diesen durch eine Zusammnfassung der nahegelegenen Outputs. Der max Pooling-Operator beispielsweise fasst eine rechteckige Umgebung der Outputs zusammen durch Ausgabe des maximalen Werts in dieser Umgebung. \\
+- Darüberhinaus existiren viele weitere Pooling-Verfahren.\\
+- Ziel des Pooling ist es die Filter invariant gegnüber kleinen Veränderungen im Input zu machen. Invariant bedeutet, dass durch eine kleine Änderung des Inputs die meisten pooled Outputs unverändert bleiben.\\
+- Diese Eingenschaft ist nützlich, da es oftmals von größerem Interesse ist zu erkennen ob Features existieren anstatt deren exakte Position zu erhalten.\\
+- Beispielsweise in der Gesichtserkennung ist es ausreichen zu erkennen, dass sich ein Auge auf der rechten Seite und eines auf der linken Seite befindet, anstatt die Position der Augen auf das pixel genau zu bestimmen. 
+- Auch ist es möglich die Pooling-Region um jeweils $k$ Pixel zu verschieben. Dies führt dazu, dass die Anzahl der Output units ca. $k$-mal weniger werden und somit deutlich weniger Inputs in der nächsten Ebene verarbeitet werden müssen. Dadurch kann der Rechenaufwand des Netzes verringert werden.
+\\goodfellow S.350\\
+%
+%
+%
 %
 %
 \section{Neuronale Netze}

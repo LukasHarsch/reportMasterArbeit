@@ -5,6 +5,27 @@
 TODO
 
 \section{NN basics}
+%
+\begin{tikzpicture}
+% Feature map
+\draw[] (2.6, 3.9) node {Feature maps};
+\foreach \i in {7,...,1} {
+	%	\draw[uniSblue, fill=uniSlightblue, thick] (0 + 0.4*\i, 0+0.4*\i) rectangle (2 + 0.4*\i, 2 + 0.4*\i);
+	\pgfmathsetmacro{\j}{10}
+	\j = \j + (\i*4)
+	\draw[fill=black!\j!white, thick] (0.2 + 0.2*\i, 0.2 +0.2*\i) rectangle (2.2 + 0.2*\i, 2.2 + 0.2*\i);
+}
+
+% Conv 1
+\draw[thick] (-1.2, 0.6) rectangle (-0.7, 1.1);
+%\draw[uniSgray, dashed, thick] (-0.7, 1.1) -- (2.0, 0.8);
+%\draw[uniSgray, dashed, thick] (-0.7, 0.6) -- (2.0, 0.8);
+\draw[thick] (-0.7, 1.1) -- (2.0, 0.8);
+\draw[thick] (-0.7, 0.6) -- (2.0, 0.8);
+\draw[thick, -latex, text width=1.8cm] (0.15, -0.3) node[below]{Convolution + Activation} -- (0.15, 0.6);
+\end{tikzpicture}
+%
+%
 Intro:
 - NN approximiert$ f^*$\\
 - $y=f^*(x)$ mapping von Input x auf Klasse y\\

@@ -7,13 +7,27 @@ TODO
 \section{NN basics}
 %
 \begin{tikzpicture}
-% Feature map
+% input
+\draw[] (-1.1, 2.7) node {Input}; % Print Input above the first node 
+%\draw[fill=white, thick] (-2.1,0.4) rectangle (-0.0, 2.4);
+% logo uni stuttgart
+\node (img) at (-1.1,1.4) {\includegraphics[width=1.8cm, trim={0cm 0cm 0cm 0.6cm}, clip]{pics/mnist4.png}};
+%
+% grids 1
+\draw[blue] (2.6, 3.9) node {Feature maps};
+\foreach \i in {7,...,1} {
+	%	\draw[uniSblue, fill=uniSlightblue, thick] (0 + 0.4*\i, 0+0.4*\i) rectangle (2 + 0.4*\i, 2 + 0.4*\i);
+	\draw[blue, fill=black!20!white, thick] (0.2 + 0.2*\i, 0.2 +0.2*\i) rectangle (2.2 + 0.2*\i, 2.2 + 0.2*\i);
+}
+%
+% Feature map 1
 \draw[] (2.6, 3.9) node {Feature maps};
 \foreach \i in {7,...,1} {
 	%	\draw[uniSblue, fill=uniSlightblue, thick] (0 + 0.4*\i, 0+0.4*\i) rectangle (2 + 0.4*\i, 2 + 0.4*\i);
-	\pgfmathsetmacro{\j}{10}
-	\j = \j + (\i*4)
-	\draw[fill=black!\j!white, thick] (0.2 + 0.2*\i, 0.2 +0.2*\i) rectangle (2.2 + 0.2*\i, 2.2 + 0.2*\i);
+%	\pgfmathsetmacro{\j}{10}
+%	\j = \j + (\i*4)
+	\pgfmathsetmacro\result{\i*5}
+	\draw[fill=black!\result!white, thick] (0.2 + 0.2*\i, 0.2 +0.2*\i) rectangle (2.2 + 0.2*\i, 2.2 + 0.2*\i);
 }
 
 % Conv 1

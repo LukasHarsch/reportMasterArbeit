@@ -123,8 +123,29 @@ representations.\\
 - Ziel des Pooling ist es die Filter invariant gegnüber kleinen Veränderungen im Input zu machen. Invariant bedeutet, dass durch eine kleine Änderung des Inputs die meisten pooled Outputs unverändert bleiben.\\
 - Diese Eingenschaft ist nützlich, da es oftmals von größerem Interesse ist zu erkennen ob Features existieren anstatt deren exakte Position zu erhalten.\\
 - Beispielsweise in der Gesichtserkennung ist es ausreichen zu erkennen, dass sich ein Auge auf der rechten Seite und eines auf der linken Seite befindet, anstatt die Position der Augen auf das pixel genau zu bestimmen. 
-- Auch ist es möglich die Pooling-Region um jeweils $k$ Pixel zu verschieben. Dies führt dazu, dass die Anzahl der Output units ca. $k$-mal weniger werden und somit deutlich weniger Inputs in der nächsten Ebene verarbeitet werden müssen. Dadurch kann der Rechenaufwand des Netzes verringert werden.
-\\goodfellow S.350\\
+- Auch ist es möglich die Pooling-Region um jeweils $k$ Pixel zu verschieben. Dies führt dazu, dass die Anzahl der Output units ca. $k$-mal weniger werden und somit deutlich weniger Inputs in der nächsten Ebene verarbeitet werden müssen. Dadurch kann der Rechenaufwand des Netzes verringert werden.\\
+%
+\textbf{Optimization}\\
+%
+- Ein neuronales Netz ist definert als eine Funktion $y=f(x,\theta)$, welche Abhängig von den Parametern $\theta$ einen Input $x$ auf den Ausgang $y$ mappt. Dabei gilt es $\theta$ so anzupassen, dass $f$ möglichst exakt die gewünschte Funktion $f^*$ approximiert. Diese Anpassung geschieht während des Trainingsprozesses. Das Training ist ein Optimierungsproblem mit dem Ziel die Parameter $\theta$ zu finden, welche die Kostenfunktion $J(\theta)$ minimiert.\\
+- P performance meassurement...nicht direkt verbunden mit $J$...\\
+- Die Kostenfunktion wird im allgemeinen als Mittelwert über das gesamte Trainingsset beschreiben:
+\begin{equation}
+J(\theta)=\mathbb{E}_{(x,y)\sim\hat{p}_{data}} L(f(x;\theta),y).
+\end{equation}
+Dabei ist $L$ die Kostenfunktion für ein einzelnes Element, $f(x;\theta)$ ist die geschätzte Ausgabe des Netzes für den Eingang $x$, $y$ die Zielausgabe und $hat{p}_{data}$ beschreibt die Verteilung des Trainingdatensets.\\
+- vllt suprvized und unregularizd anmrken\\
+- empirische Verteitung zum training verwenden, in der hoffnung dass sich das Loss für die allgemeine Verteilung verringert (empirical risk minimization to to hopefully minimize the overall risk)\\
+- Das Update der Paramter in einer Optimierung von machine learning geschieht normalerweise durch Ermittlung der Kostenfunktion aus einem Subset des gesamten Trainingsset. Beispielsweise die maximum log-Likelihood Schätzung wird beschreiben als Summe über den gesamten Datensatz:\\
+...equation...\\
+...umformung in kostenfunktion...\\
+...wichtigste Eignschaft der Gradient...\\
+...sehr teuer für gsamten Datensatz -> nur auf kleinen Teilset berechnen...\\
+...weiterer Grund redundanz im Datensatz -> Viele Daten sehr ähnlich und somit ähnliches contribution on gradient\\
+...batch, minibatch, SGD eigentlich 1 bild...liegt in wirklichkeit dazwischen\\
+%
+%
+\\goodfellow S.274\\
 %
 %
 %
@@ -273,9 +294,13 @@ Somit wird der eigentliche Sampling-Prozess aus dem Netz herausgezogen. Lediglic
 
 %
 %
-\subsubsection{GAN}
-TODO
-
+\subsubsection{ACGAN}
+Ein weiteres generatives Model ist das sogenannte \textbf{generative adversarial network} (GAN). Wie im Model des VAE zuvor ist auch hier das Ziel künstliche Daten aus einem zufällig verteilten Rauschvektor $z$ zu generieren. Das GAN besteht aus zwei Netzen die gegeneinander trainiert werden. 
+%
+%
+\\https://arxiv.org/pdf/1610.09585.pdf\\
+\\https://arxiv.org/pdf/1701.00160.pdf\\
+%
 \subsection{Attack-Defence}
 
 \section{Akustic-Preprocessing}

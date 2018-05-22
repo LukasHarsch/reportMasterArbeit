@@ -6,10 +6,77 @@ TODO
 
 \section{Baseline}
 TODO
-
-
+%
+%
 \section{Autoencoder}
-TODO
+Dieses Kaptil stellt zuerst einmal das Verhalten eines VAE beispielhaft an dem MNIST Datensatz dar. MNIST ist ein Datensatz aus Bildern von handgeschriebenen Zahlen zwischen Null und Neun. Jedes Bild hat dabei 28x28 Pixel. Der Datensatz beinhaltet 60000 Bildern für das Training und 10000 für die Evaluation. Anschließend werden die Ergebnisse der Dataaugmentation für den Datensatz dr Spektorgramme präsentiert. Darüber hinaus wird gezeigt, welchen Einfluss die Dataaugmentation auf das Klassifikationsergebnis hat.\\
+\\
+%
+Tabelle \ref{VAEencArchitecturMNIST} und \ref{VAEdecArchitecturMNIST} zeigen die Encoder und Decoder Architektur des VAE für den MNIST Datensatz. Der Encoder besitzt zu Begin vier Convolutional Ebenen mit steigender Filteranzahl von 32, 64 und 128. Zusätlich wird in Striding von $2x2$, wodurch der Input gedownsampled wird um den Rechenaufwand zu verringern. In der vierten Conv Ebene wird kein Striding mehr angewandt. Als Aktivierungsfunktion wird in allen Conv Ebenen die ReLU Funktion verwendet. Auf die Conv Ebenen folgt jeweils eine Dropout Ebene um die Generalisierung zu erhöhen. Das Resultat der Conv Ebenen sind $4\times4\times128$ Feature Maps. Diese werden in der Flatten Ebene zu einem Vektor umgeformt und durch eine vollverkettete Ebene mit 512 Units geschickt. Zuletzt muss der Latentraum $z$ erzeugt werden. Dieses wird wie in Kapitel X beschreiben als Gausverteilung definiert. Eine Gausverteilung wird über zwei Parameter den Erwartungswert $\mu(X)$ und die Varianz $\sigma^2(X)$ beschreiben. Dazu wird das Netz an dieser Stelle aufgespaltet indem zwei vollverkettete Ebenen parallel verwendet werden. Das Netz besitz somit zwei Ausgangsebenen. Diese Ebenen besitzen jeweils zwei Hidden Units um so eine zweidimensionale Gaussverteilung zu erzeugen.\\  
+\\
+Den Encoder soll Samples, gezogen aus dem Latentraum $z$ wieder auf die ursprüngliche Eingabe zurück mappen. Dazu besitzt der Encoder erste Ebene eine Sampling Funktion, welche aus dem Input $\mu(X)$ und $\sigma^2(X)$ den Latentraum $z=\mu(X)+\Sigma^{\frac{1}{2}}(X)\epsilon$ erzeugt, sodass dieser differenzierbar bleibt. Die Implementierung wird in Algorithmus \ref{Sampling} gezeigt. Dabei wurde die Varianz als log-Varianz modelliert um ein numerisch stabileres Verhalten zum erzielen.\\
+%
+Nach der Sampling Ebene besitzt der Decoder zwei vollverkettete Ebenen mit 512 und 1152 Hidden Units. Um daraus wieder ein zweidimensionales Bild zu erhalten wird eine Reshape Ebene eingesetzt welche eine $3\times3\tims128$ Feature Map erzeugt. Anschließend werden drei Convolution Transposed Ebenen verwednet mit Kernel Größe $3\times3$ und Striding $2\times2$. Die Conv Transposed mit Striding sorgt dafür, dass der Input wider geupsamplet wird um so die Ursprungsgröße der Daten wieder zu erlangen. Zusätzlich wird hier eine BatchNorm verwendet.
+
+
+%
+%
+%
+\begin{table}
+\begin{tabular}{c c c c c c c}
+\toprule
+Operation&Kernel&Strides&Feature maps&BN?&Dropout&Nonlinarity\\
+\midrule
+Input&N/A&N/A&N/A&N/A&N/A&N/A\\
+Convolution&3x3&2x2&32&\ding{55}&0.3&ReLU\\
+Convolution&3x3&2x2&64&\ding{55}&0.3&ReLU\\
+Convolution&3x3&2x2&128&\ding{55}&0.3&ReLU\\
+Convolution&3x3&1x1&128&\ding{55}&0.3&ReLU\\
+Flatten&N/A&N/A&N/A&\ding{55}&\ding{55}&N/A\\
+Dense&N/A&N/A&512&\ding{55}&\ding{55}&ReLU\\
+Dense $\mu(X)$&N/A&N/A&2&\ding{55}&\ding{55}&Linear\\
+Dense $\sigma^2(X)$&N/A&N/A&2&\ding{55}&\ding{55}&Linear\\
+\toprule
+\end{tabular}
+\caption{Encoder Architektur des VAE für den MNIST Datensatz}
+\label{VAEencArchitecturMNIST}
+\end{table}
+%
+%
+\begin{table}
+\begin{tabular}{c c c c c c c}
+\toprule
+Operation&Kernel&Strides&Feature maps&BN?&Dropout&Nonlinarity\\
+\midrule
+Input $\mu(X)$&N/A&N/A&N/A&N/A&N/A&N/A\\
+Input $\sigma^2(X)$&N/A&N/A&N/A&N/A&N/A&N/A\\
+Sampling&N/A&N/A&N/A&\ding{55}&\ding{55}&N/A\\
+Dense&N/A&N/A&512&\ding{55}&\ding{55}&ReLU\\
+Dense&N/A&N/A&1152&\ding{55}&\ding{55}&ReLU\\
+Reshape&N/A&N/A&N/A&N/A&N/A&N/A\\
+ConvTransposed&3x3&2x2&128&\ding{51}&0.3&Leaky ReLU\\
+ConvTransposed&3x3&2x2&64&\ding{51}&0.3&Leaky ReLU\\
+ConvTransposed&3x3&2x2&32&\ding{51}&0.3&Leaky ReLU\\
+ConvTransposed&3x3&1x1&1&\ding{55}&0.3&Sigmoid\\
+\toprule
+\end{tabular}
+\caption{Decoder Architektur des VAE für den MNIST Datensatz}
+\label{VAEdecArchitecturMNIST}
+\end{table}
+%
+%
+\begin{algorithm}
+\caption{Sampling}
+\begin{algorithmic}
+\REQUIRE $\mu(X),~\sigma^2(X)$
+%\ENSURE $abc$
+\STATE $\epsilon \sim \mathcal{N}(0,I)$
+\STATE $z = \mu(X)+e^{\frac{\mathrm{log}(\sigma)}{2}}(X)\epsilon$
+\end{algorithmic}
+\label{Sampling}
+\end{algorithm}
+%
+%
 \section{GAN}
 TODO
 \section{Attak-Defence}

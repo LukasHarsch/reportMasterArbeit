@@ -223,6 +223,9 @@ Darüber hinaus existieren weitere komplexere Methoden um Fake-Daten künstlich zu
 \cite{2016arXiv160605908D}
 %
 %
+Generative adversarial networks are an example of generative models. The term ?generative model? is used in many different ways. In this tutorial, the term refers to any model that takes a training set, consisting of samples drawn from a distribution $p_{data}$, and learns to represent an estimate of that distribution somehow. The result is a probability distribution $p_{model}$. In some cases, the model estimates $p_{model}$ explicitly, as shown in figure 1. In other cases, the model is only able to generate samples from $p_{model}$, as shown in figure 2. Some models are able to do both. GANs focus primarily on sample generation, though it is possible to design GANs that can do both.
+%
+%
 \subsubsection{Variational Autoencoder}
 %
 %
@@ -285,7 +288,7 @@ Die linke Seite der Gleichung \ref{eq:KL_loss} beschreibt die kostenfunktion des
 %
 - Um den Eingang $z$ für den Encoder zu erhalten müssen Sample aus eine Gaussverteilung gezogen werden, welche durch die Parameter aus dem DEcoder definiert wird. Dies führt allerdings zu Problemen bei der Optimierung mit gradient descent, da der Sampling-Prozess keine Gradienten besitzt.\\
 - Damit das Netz differenzierbar bleib wird der sogenannte Reparametrisierungstrick angewandt.
-- Eine Standartnormalverteilung lässt sich in jede Gaussverteilung konvertieren, falls deren Erwartungswert und Varianz bekannt sind. Somit genügt es Sample aus einer Standartnormalverteilung $\epsilon Tilde N(0,1) $ zu ziehen und diese mit dem Erwartungswert $\mu$ und der Varianz $\Sigma$ aus dem Encoder nach $z$ zu konvertieren:
+- Eine Standartnormalverteilung lässt sich in jede Gaussverteilung konvertieren, falls deren Erwartungswert und Varianz bekannt sind. Somit genügt es Sample aus einer Standartnormalverteilung $\epsilon\sim N(0,1) $ zu ziehen und diese mit dem Erwartungswert $\mu$ und der Varianz $\Sigma$ aus dem Encoder nach $z$ zu konvertieren:
 \begin{equation}
 z=\mu(X)+\Sigma^{\frac{1}{2}}(X)\epsilon.
 \end{equation}
@@ -295,7 +298,13 @@ Somit wird der eigentliche Sampling-Prozess aus dem Netz herausgezogen. Lediglic
 %
 %
 \subsubsection{ACGAN}
-Ein weiteres generatives Model ist das sogenannte \textbf{generative adversarial network} (GAN). Wie im Model des VAE zuvor ist auch hier das Ziel künstliche Daten aus einem zufällig verteilten Rauschvektor $z$ zu generieren. Das GAN besteht aus zwei Netzen die gegeneinander trainiert werden. 
+Ein weiteres generatives Model ist das sogenannte \textbf{generative adversarial network} (GAN). Wie im Model des VAE zuvor ist auch hier das Ziel künstliche Daten aus einem zufällig verteilten Rauschvektor $z$ zu generieren. Das GAN besteht aus zwei Netzen, dem \textbf{Generator} $\mathbf{(G)}$ und einem \textbf{Diskriminator} $\mathbf{(D)}$ die gegeneinander trainiert werden. Der Generator nimmt als Input einen zufälligen Rauschvektor $z$ und soll daraus fingierte Bilder $X_{fake}=G(z)$ erzeugen, welche sich möglichst nicht mehr von den realen Bildern unterscheiden lassen. Die Aufgabe des Diskriminators ist es die Bilder in die Kategorien $fake$ und $real$ zu klassifizieren. Dazu nimmt $D$ entweder ein reales oder fingiertes Bild als Input. Daraus soll $D$ eine Wahrscheinlichkeitsverteilung $P(S|X)=D(X)$ über die möglichen Quellen der Bilder bestimmen, also $fake$ oder $real$.\\
+%
+Der Diskriminator soll so trainiert werden, dass er die log-Wahrscheinlich maximiert für welche der Input $X$ der richtigen Quelle zugeordnet wird. Daraus ergibt sich die Kostenfunktion für den Diskriminator:
+\begin{equation} \label{LossGAN}
+L=E\big[\mathrm{log} P(S=real |X_{real})\big]+ E\big[\mathrm{log} P(S=fake|X_{fake})\big]
+\end{equation}
+Um den Generator zu trainieren wird dagegen versucht die log-Wahrscheinlich mit welcher $X_{fake}$ der Klasse $fake$ zugeordnet wird zu minimieren. D.h. es wird versucht den zweiten Term aus Gleichung \ref{LossGAN} zu minimieren. Das bedeutet der Generator versucht Bilder zu erzeugen, welche mit hoher Wahrscheinlichkeit der Klasse $real$ angehören. 
 %
 %
 \\https://arxiv.org/pdf/1610.09585.pdf\\

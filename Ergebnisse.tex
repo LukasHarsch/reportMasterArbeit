@@ -25,6 +25,7 @@ Nach der Sampling Ebene besitzt der Decoder zwei vollverkettete Ebenen mit 512 u
 %
 %
 %
+\begin{comment}
 \begin{tikzpicture}
 \begin{axis}[enlargelimits=false,colorbar,xmin=-6,xmax=6,ymin=-6,ymax=6]
 \addplot+[only marks,scatter,scatter src=explicit] table[x=x,y=y,meta=label] {latentSpace.txt};
@@ -76,6 +77,7 @@ ConvTransposed&3x3&1x1&1&\ding{55}&0.3&Sigmoid\\
 \end{table}
 %
 %
+%
 \begin{algorithm}
 \caption{Sampling}
 \begin{algorithmic}
@@ -86,6 +88,7 @@ ConvTransposed&3x3&1x1&1&\ding{55}&0.3&Sigmoid\\
 \end{algorithmic}
 \label{Sampling}
 \end{algorithm}
+\end{comment}s
 %
 %
 https://arxiv.org/pdf/1406.5298.pdf\\

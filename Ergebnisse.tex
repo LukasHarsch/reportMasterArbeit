@@ -13,8 +13,8 @@ Dieses Kaptil stellt zuerst einmal das Verhalten eines VAE beispielhaft an dem M
 \\
 %
 Das Encodernetz $Q$ soll die Eingangsdaten $X$ in einen Zwischenraum $z$ mappen. Für den MNIST Datensatz wird eine zweidimensionale Gausverteilung gewählt um, sodass $z\sim N(0,I)$. Nach dem Training des VAE lässt sich der Latentraum $Q(z|X)$ darstellen wie in Abbildung x gezeigt. Jeder Punkt in Abbildung X ist dabei die Repräsentation $z_i$ des zugehörigen Eingangsbild $X_i$. Abbildung X zeigt, dass der gelernte Latentraum einer Gausverteilung $N(0,I)$ entspricht. Auch ist zu erkennen, dass sich Samples mit gleichem Label zu Clustern formieren. So können später durch abtasten der Verteilung $P(z)$ Bilder aus den verschiedenen Klassen generiert werden.\\
-Anschließend können die encodeden Bilder vom Decoder $P$ wieder rekonstruiert werden. In diesem Fall soll der VAE Bilder von handgeschriebenen Zahlen encoden und anschließend rekonstruieren. Dieses Verhalten ist in Abbildung X dargestellt. Die obere Zeile beinhaltet beispielhafte Zahlen von Null bis Neun aus dem MNIST Datensatz. Diese werden durch den VAE geschickt und dabei encoded. Die rekonstruierten Bilder sind in der unteren Zeile dargstellt. Es ist zu erkennen das der VAE in den meisten Fällen die Ursprungszahl wiederherstellen kann. Allerdings hat der VAE bei manchen Ziffern deutlich mehr Probleme die Form zu rekonstuieren. Dabei ist auffallend, dass Ziffern dazu tendieren die Form einen anderen Zahl anzunehmen. Der Gurnd dafür ist, dass der Latentraum eine continuierliche Verteilung repräsentiert und somit die Grenzen zwischen den Clustern fließend sind.\\
-Durch Abtasten des Latentraum können neue Samples aus der gelernten Verteilung gezogen werden. Diese können als Input für den Decoder $P$ verwendet werden um so neue ungesehene Bilder zu generieren. Hierzu wird die Gaussverteilung in x- und y-Richtung abgetastet. Abbildung X zeigt den Verlauf der rekonstuierten Bilder. Es ist zu erkennen, dass durch Samples aus den verschiedenen Clustern ein Übergang zwischen den verschieden Ziffern entsteht.\\
+Anschließend können die encodeden Bilder vom Decoder $P$ wieder rekonstruiert werden. In diesem Fall soll der VAE Bilder von handgeschriebenen Zahlen encoden und anschließend rekonstruieren. Dieses Verhalten ist in Abbildung X dargestellt. Die obere Zeile beinhaltet beispielhafte Zahlen von Null bis Neun aus dem MNIST Datensatz. Diese werden durch den VAE geschickt und dabei encoded. Die rekonstruierten Bilder sind in der unteren Zeile dargstellt. Es ist zu erkennen das der VAE in den meisten Fällen die Ursprungszahl wiederherstellen kann. Allerdings hat der VAE bei manchen Ziffern deutlich mehr Probleme die Form zu rekonstuieren. Dabei ist auffallend, dass Ziffern dazu tendieren die Form einen anderen Zahl anzunehmen. Der Gurnd dafür ist, dass der Latentraum eine continuierliche Verteilung repräsentiert und somit die Grenzen zwischen den Clustern fließend sind. Beispielsweise die Ziffer 3 wird hier als Ziffer 5 rekonstuiert. Betrachtet man den Latentraum bzw. den Manifold der generierten Bilder ist zu erkennen, dass sich die Cluster der Ziffern 3,5 und 8 alle in der Mitte sammeln und sich teilweise überlagern. Dies kann dazu führen, dass Ziffern aus diesem Bereich als andere Zahl rekonstruier werden.\\
+Durch Abtasten des Latentraum können neue Samples aus der gelernten Verteilung gezogen werden. Diese können als Input für den Decoder $P$ verwendet werden um so neue ungesehene Bilder zu generieren. Hierzu wird die Gaussverteilung in x- und y-Richtung abgetastet. Abbildung X zeigt den Verlauf der rekonstuierten Bilder. Es ist zu erkennen, dass durch Samples aus den verschiedenen Clustern ein Übergang zwischen den verschieden Ziffern entsteht. Ein Hauptproblem des VAE ist die Eigenschaft, dass sowohl die rekosntruierten als auch die generierten Bild verschwommen sind und nicht die scharfen Konturen der Orginalbilder aufweisen. Dies liegt an der Beschränkung des Latentraums auf eine simplen zweidimensionale Gaussverteilung. Diese Verteilung reicht nicht aus um alle Aspekte der Eingangsdaten abzubilden. Höherdimensionale Verteilungen ermöglichen daher vrbesserte Rekonstrukitionseigenschaften. Allerdings wird dadurch auch der Samplingprozess zu generierung neuer Daten erschwert, da es deutlich komplexer ist solch eine Verteilung abzutasten.\\
 \\
 %
 Tabelle \ref{VAEencArchitecturMNIST} und \ref{VAEdecArchitecturMNIST} zeigen die Encoder und Decoder Architektur des VAE für den MNIST Datensatz. Der Encoder besitzt zu Begin vier Convolutional Ebenen mit steigender Filteranzahl von 32, 64 und 128. Zusätlich wird in Striding von $2x2$, wodurch der Input gedownsampled wird um den Rechenaufwand zu verringern. In der vierten Conv Ebene wird kein Striding mehr angewandt. Als Aktivierungsfunktion wird in allen Conv Ebenen die ReLU Funktion verwendet. Auf die Conv Ebenen folgt jeweils eine Dropout Ebene um die Generalisierung zu erhöhen. Das Resultat der Conv Ebenen sind $4\times4\times128$ Feature Maps. Diese werden in der Flatten Ebene zu einem Vektor umgeformt und durch eine vollverkettete Ebene mit 512 Units geschickt. Zuletzt muss der Latentraum $z$ erzeugt werden. Dieses wird wie in Kapitel X beschreiben als Gausverteilung definiert. Eine Gausverteilung wird über zwei Parameter den Erwartungswert $\mu(X)$ und die Varianz $\sigma^2(X)$ beschreiben. Dazu wird das Netz an dieser Stelle aufgespaltet indem zwei vollverkettete Ebenen parallel verwendet werden. Das Netz besitz somit zwei Ausgangsebenen. Diese Ebenen besitzen jeweils zwei Hidden Units um so eine zweidimensionale Gaussverteilung zu erzeugen.\\  
@@ -31,6 +31,24 @@ Nach der Sampling Ebene besitzt der Decoder zwei vollverkettete Ebenen mit 512 u
 \addplot+[only marks,scatter,scatter src=explicit] table[x=x,y=y,meta=label] {latentSpace.txt};
 \end{axis}
 \end{tikzpicture}
+%
+%
+%
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.66\textwidth]{generationOverLatent.png}
+	\caption{MNIST Manifold}
+	\label{MNISTmanifold}
+\end{figure}
+%
+%
+%
+\begin{figure}%[ht]
+  \centering
+  \includegraphics[width=.8\linewidth]{MNISTrecon0-9.png}
+  \caption{Orginal und rekonstruierte Bilder}
+  \label{MNISTrecon0-9}
+\end{figure}
 %
 %
 %
@@ -88,7 +106,7 @@ ConvTransposed&3x3&1x1&1&\ding{55}&0.3&Sigmoid\\
 \end{algorithmic}
 \label{Sampling}
 \end{algorithm}
-\end{comment}s
+\end{comment}
 %
 %
 https://arxiv.org/pdf/1406.5298.pdf\\

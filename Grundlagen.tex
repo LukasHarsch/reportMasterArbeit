@@ -293,8 +293,6 @@ Die linke Seite der Gleichung \ref{eq:KL_loss} beschreibt die kostenfunktion des
 z=\mu(X)+\Sigma^{\frac{1}{2}}(X)\epsilon.
 \end{equation}
 Somit wird der eigentliche Sampling-Prozess aus dem Netz herausgezogen. Lediglich $\mu$ und $\Sigma$ sind noch Teil des Netzes und die Backpropagation kann problemlos durchgeführt werden. 
-
-
 %
 %
 \subsubsection{ACGAN}
@@ -310,7 +308,111 @@ Um den Generator zu trainieren wird dagegen versucht die log-Wahrscheinlich mit 
 \\https://arxiv.org/pdf/1610.09585.pdf\\
 \\https://arxiv.org/pdf/1701.00160.pdf\\
 %
-\subsection{Attack-Defence}
+%
+\subsubsection{ACGAN2}
+%
+Ein weiteres generatives Model ist das sogenannte \textbf{generative adversarial network} (GAN). Das GAN besteht aus zwei Netzen, dem \textbf{Generator} $\mathbf{(G)}$ und einem \textbf{Diskriminator} $\mathbf{(D)}$ die gegeneinander trainiert werden.
+- Ziel des Generators ist es Samples zu generieren die mit hoher Wahrscheinlichkeit aus der selben Verteilung stammen wie die Trainingsdaten.\\
+- Der Diskriminator  soll erkennen ob es sich um fingierte Samples aus dem Generator handelt oder um reale Samples aus dem Trainingsdatenset. Dazu klassifiziert $D$ die Daten in zwei Klassen $fake$ oder $real$.\\
+- Die beiden Netze werden gegeneinander trainiert, sodass der Generator lernt den Diskriminator auszutricksen indem $G$ lernt, Samples zu generieren welche aus der gleichen Verteilung gezogen wurden wie die Trainingsdaten. 
+- GANs are a structured probabilistic model containing latent variables z and observed variables x\\
+- \textbf{diesen teil vllt in Unterkapitel Generator übernehmen}
+- Das Diskriminatornetz kann als Funktion $D$ mit den Netzwerkparametern $\theta^{(D)}$ beschreiben werden, welches Inputdaten $x$ aufnimmt.\\
+- Dementsprechend wird das Generatornetz als Funktion $G$ mit den Parametern $\theta^{(G)}$ beschreiben. $G$ erhält als Input einen zufälligen Rauschvektor $Z$.\\
+- Beide Netze haben Kostenfunktionen die jeweils abhängig von den Parametern beider Netze sind. Der Diskriminator versucht die Kostenfunktion $J^{(D)}(\theta^{(D)}, \theta^{(G)})$ zu minimieren, wobei er nur $\theta^{(D)}$ verändern kann. Genauso versucht der Generator $J^{(G)}(\theta^{(D)}, \theta^{(G)})$ zu minimieren indem $\theta^{(G)}$ angepasst wird.\\
+\\
+\textbf{fig. 12 aus Paper infügen und erklären}\\
+\\
+\textbf{Generator:}\\
+- Generator $G$ ist differenzierbare Funktion. In diesem Fall ein neuronales Netz.
+- $z$ ist ein zufälliger Rauschvektor, dessen Sample aus einer beliebigen einfachen prior Distribution gezogen werden. Oftmals genügt hierfür eine Gleichverteilung $z\sim\mathcal{U}(a,b)$ oder eine Normalverteilung $z\sim\mathcal{N}(0,1)$. \\
+- Für einen Rauschvektor $z$ soll der Generator $G(z)$ ein Sample $x$ generieren, welches aus der Verteilung $p_{model}$ gezogen wurde.\\
+\\
+\textbf{Training:}\\
+Für das Training der beiden Netze werden zwei SGD Optimierungen gleichzeitig verwendet. In jeder Iteration werden zwei Batches geladen. Ein Batch mit Samples $x$ aus den Trainingsdaten und ein Batch mit Samples $z$ gezogen aus einer prior Distribution. Anschließend werden zwei Gradientenschritte gleichzeitig durchgeführt. In einem Schritt wird $\theta^{(D)}$ angepasst um $J^{(D)}$ zu minimieren, während im anderen das gleiche für $\theta^{(G)}$ und $J^{(G)}$ gilt.\\
+\\
+\textbf{Kostenfunktion:}\\
+- Standardmäßig wird  für die Klassifikation von binären Problemen mit Sigmoid Outputs die Cross-Entropie Kostenfunkiton verwendet.\\
+- Diese wird im Grunde auch als Kostenfunkiton für den Diskriminator angewandt:
+\begin{equation}
+J^{(D)}(\theta^{(D)}, \theta^{(G)}) = -\frac{1}{2}E_{x\sim p_{data}}\mathrm{log}D(x) -\frac{1}{2}E_{z}\mathrm{log}(1-D(G(x)))
+\end{equation}
+In der GAN Architektur bekommt der Klassifizierer allerdings zwei Batches für das Training. In einem Batch sind die Samples aus dem Trainingsdatenset, welche alle das Label 1  erhalten, während die Samples aus dem Generator im zweiten Batch mit 0 gelabelt werden.\\
+\\
+\textbf{Gesamtkonzept:}\\
+- Das GAN Konzept besteht aus zwei Szenarien.\\
+- Im ersten Szenario wird ein Batch aus zufälligen Samples $x$ aus dem Trainingsdatenset als Input für den Diskriminator verwendet. Ziel des Diskriminators ist es eine Wahrscheinlichkeit auszugeben, ob der Input real oder fake ist. In diesem ersten Schritt soll $D(x)$ eine Wahrscheinlichkeit nahe 1 ausgeben, also alle Samples aus $x$ als real klassifizieren. \\
+- Im zweiten Schritt wird $z$ als Input für den Generator $G$ verwendet. Der Diskriminator wiederum erhält $G(z)$ als Input, also fake Samples aus dem Generator. Der Diskriminator versucht für $D(G(z))$ eine Wahrscheinlichkeit von 0 zu erhalten und somit die Bilder als fake zu erkennen. Währenddessen bemüht sich der Generator  für $D(G(z))$ eine Wahrscheinlichkeit von 1 zu verursachen.\\
+- Wird dieser Prozess erfolgreich durchgeführt bedeutet dies, dass $G(z)$ aus der selben Verteilung wie die Trainingsdaten gezogen werden.\\
+\\
+\textbf{ACGAN:}\\
+Bislang hat das GAN lediglich die Möglichkeit neue ungesehene Daten aus einer prior distributuion zu Generieren, sowie reale Daten von Fake Daten zu unterscheiden.\\
+- Diese GAN Architektur lässt sich zu einem \textbf{auxiliary classifier GAN} (ACGAN) erweitern.\\
+- In einem ACGAN besitzt jedes generierte Sample ein zugehöriges Klassenlabel. Dazu nimmt der Generator $G$ zusätzlich zu einem Rauschvektor $z$ das Klassenlabel $c\sim p_c$ als Input. Der Generator nutzt somit beides, $z$ und $c$ um fingierte Bilder $X_{fake}=G(c,z)$ zu erzeugen.\\
+- Auch der Diskrimator kann beide Informationen verarbeiten, indem er eine Wahrscheinlichkeitsverteilung über die Quelle der Samples (real/fake) und eine Wahrscheinlichkeitsverteilung über die Klassenlabel ausgibt:
+\begin{equation}
+P(S | X), P(C | X) = D(X).
+\end{equation}
+- Ebenso wird die Kostenfunktion um einen zweiten Teil erweitert. Der erste Term bleibt wie im standard GAN die log-Wahrscheinlichkeit für die korrekte Quelle $L_S$. Für das ACGAN wird die log-Wahrscheinlichkeit für die korrekte Klasse $L_C$ hinzugefügt. 
+\begin{equation} \label{LossACGAN_S}
+L_S=E\big[\mathrm{log} P(S=real |X_{real})\big]+ E\big[\mathrm{log} P(S=fake|X_{fake})\big]
+\end{equation}
+%
+\begin{equation} \label{LossACGAN_C}
+L_C=E\big[\mathrm{log} P(C=c |X_{real})\big]+ E\big[\mathrm{log} P(C=c|X_{fake})\big]
+\end{equation}
+Dabei wird der Diskriminator wieder so trainiert, dass er den Samples die richtige Quelle zuordnen kann indem versucht wird $L_S$ zu maximieren. Zusätzlich soll noch die Klasse korrekt ermittelt werden, sodass $D$ trainiert wird um $L_S+L_C$ zu maximieren. Im Gegensatz dazu soll der Generator trainiert werden um das entgegengesetzte Ereignis $-L_S$ zu maximieren. Die Klassenlabels sollen dabei trotzdem richtig zugeordnet werden. Somit soll $G$ während des Training $L_C-L_S$ maximieren.\\
+\cite{2017arXiv170100160G}, \cite{2016arXiv161009585O}
 
+%
+%
+\subsection{Attack-Defence}
+%
+- Das Trainieren eines Klassifikators mit neuronalen Netzen führt trotz der Vielzahl an Parametern in einem Netz zwangsläufig zum einem Overfitting der Trainingsdaten. Dadurch unterscheidet sich der Trainingsfehler immer vom Testfehler. Oftmals werden Regularizierungsterme der Kostenfunktion hinzugefügt um ein Overfitting zu verhindern.\\
+- Weitere Methoden bestehen darin den Datensatz durch hinzufügen von zufälligem Rauschen auf die Eingangsdaten zu erweitern oder die Eingangsdaten durch leichtes Rotieren oder Verschieben abzuändern.\\
+- insbesondere Gefährdet
+
+Das Trainieren eines neuronalen Netzen als Klassifikators führt trotz der Vielzahl an Parametern in einem Netz zwangsläufig zum einem Overfitting der Trainingsdaten. Oftmals werden Regularizierungsterme der Kostenfunktion hinzugefügt um ein Overfitting zu verhindern. Andere Methoden bestehen darin den Datensatz zu erweitern indem den Eingangsdaten ein zufälliges Rauschen hinzugefügt wird oder die Daten durch Rotieren und Verschieben abgeändert werden.  
+-    \\
+- Das Trainieren eines neuronalen Netzen als Klassifikators führt trotz der Vielzahl an Parametern in einem Netz zwangsläufig zum einem Overfitting der Trainingsdaten. Oftmals werden Regularizierungsterme der Kostenfunktion hinzugefügt um ein Overfitting zu verhindern. Andere Methoden bestehen darin den Datensatz zu erweitern, indem den Eingangsdaten ein zufälliges Rauschen hinzugefügt wird oder die Daten durch Rotieren und Verschieben abgeändert werden\\
+%
+- Diese simplen Methoden der Datenerweiterung erreichen oftmals eine gewisse Generalisierung. Allerdings bleiben die Netze dabei anfällig für Störungen in bestimmte Richtungen. Diese Richtung wird adversarial direction genannt und bedeutet eine Richtung in im Inputspace in welche die Klassenwahrscheinlichkeit des Models am meisten sensitiv ist.\\
+%
+- Diese simplen Methoden der Datenerweiterung erreichen oftmals eine gewisse Generalisierung. Allerdings bleiben die Netze dabei meistens anfällig für gezielte Störungen (adversarial Störungen). Mit dieser Art von Störung sind adversarial Samples gemeint, welche gezielt Abgeändert werden um den Klassifikator zu täuschen. Für ein ursprüngliches (sauberes) Sample $C$ welches vom Klassifikator $M(C)=y_{true}$ richtig klassifiziert wird kann ein adversarial Sample $A$ erstellt werden, sodass der Klassifikator $M(A)\neq y_{true}$ getäuscht wird. Die gezielte Störung kann dabei so gering sein, dass sie für das menschliche Auge nicht ersichtlich ist, aber ausreicht um das neuronale Netz zu einer falschen Klassifikation zu führen. Das Einschleusen solcher adversarial Bilder wird auch adversarial Attacke genannt.\\
+%
+- Ein Beispiel hierfür ist das in Abbildung X dargestellte Bild eine Pandas. Das saubere Bild (links) wird mit 98\% Sicherheit als Panda klassifiziert. In mittleren Teil wird die Störung gezeigt welche dem Pandabild hinzugefügt wird. Auf der rechten Seite ist das gestört (adversarial) Bild des Pandas dargestellt. Dabei fällt auf, dass für das menschliche Auge kaum eine Störung zu erkennen ist, der Klassifikator das Bild allerdings mit 78\% Sicherheit als Gibbon klassifiziert und nicht mehr als Panda.\\
+%
+- Durch das Einfügen von adverserial Samples in das Trainingsdatenset kann die Robustheit des Netzes gegen aversarial Samples gesteigert werden. Diese Konzept wird adversarial Training genannt. Darüber hinaus kann das adv. Training das Netz zu generalisieren.\\
+%
+Im folgenden werden verschiedene Attacke-Methoden gezeigt womit adv. Samples erzeugt werden können. Danach werden die Grundlagen des adv. Trainings präsentiert. Zuletzt wird eine Erweiterung dieser Methode eingeführt, das virtual adversarial Training (VAT). Das VAT ist neben dem VAE und dem GAN eine weitere Methode für semi-überwachtes Lernen.\\
+%
+\textbf{adv. Attacken}\\
+- Die Grundidee ist eine adversarial Richtung zu finden. Damit ist die Richtung im Input space gemeint, auf welche die Klassenwahrscheinlichkeit des Models am meisten sensitiv reagiert.\\
+- Eine simple Methode mit geringem Rechenaufwand für das generieren von adv. Samples ist die \textbf{fast gradient sign method} (FGSM). Diese ist definiert als:
+\begin{equation}
+X^{adv} = X + \epsilon~\mathrm{sign}(\nabla_X J(X,y_{true})),
+\end{equation}      
+wobei $\epsilon$ die Magnitude der Störung ist. Die FGSM erkundet die Gradientenrichtung der Kostenfunktion und berechnet eine adv. Störung, welche den Wert der Kostenfunktion erhöht. Dazu führt die FGSM einen einzelnen Gradientenupdate durch und geht einen Schritt in Richtung des sign des Gradienten für jedes Pixel.\\
+- Eine weitere Methode mit nur einem Gradientenupdate ist die \textbf{one-step target class method}. Ziel dieses Ansatzes ist es die Wahrscheinlichkeit $p(y_{target}|X)$ einer Zielklasse $ y_{target}$ zu bestimmen, welche mit geringer Wahrscheinlichkeit der tatsächlichen Klasse $y_{true}$ für ein Sample $X$ entspricht. Die Formulierung dieser Attacke ist sehr ähnlich zu FGSM nur dass der Gradient in Richtung einer bestimmten Klasse bestimmt wird:
+\begin{equation}
+X^{adv} = X + \epsilon~\mathrm{sign}(\nabla_X J(X,y_{target})).
+\end{equation}
+Die Zielklasse kann dabei entweder zufällig gewählt werden oder durch einen "least likely estimator" $y_{LL}=\mathrm{arg~min}_y\{p(y|X)\}$ bestimmt werden.\\
+- DIe zwei bisherigen Methoden
+%
+%
+\\Adversarial Machine Learning at scale\\
+%
+\\VAT paper for semi sup. learning\\ 
+%
+\\Explaining and harnessing adversarial examples (Bild von panda)\\  
+%
+- Intro\\
+- \textbf{Adversarial Training:}\\
+- Attacke Methoden\\
+- \textbf{VAT:}\\
+%
+%
+%
 \section{Akustic-Preprocessing}
 Dieses Kapitel beschreibt die 
